@@ -1,57 +1,36 @@
-# RedCross Blood Bank
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-Current architecture:
+## Getting Started
 
-- Frontend: Next.js, TypeScript, Tailwind CSS, lucide-react, Recharts, Leaflet/OpenStreetMap
-- Backend/data/auth/storage: Supabase free project
-- Active app folder: `asthethic`
+First, run the development server:
 
-Laravel is not required for this website. The active website connects directly to Supabase from the Next.js app using only public browser-safe Supabase values.
-
-## Project Structure
-
-```txt
-asthethic/             Next.js RedCross Blood Bank app
-supabase-schema.sql    Supabase tables, RLS policies, seed data, storage policy, and Auth signup trigger
-SUPABASE_SETUP.md      Supabase setup instructions
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-## Environment
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-Create or update `asthethic/.env.local`:
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-```txt
-NEXT_PUBLIC_APP_NAME="RedCross Blood Bank"
-NEXT_PUBLIC_SUPABASE_URL="https://YOUR-PROJECT-REF.supabase.co"
-NEXT_PUBLIC_SUPABASE_ANON_KEY="YOUR-PUBLIC-ANON-KEY"
-```
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-Never add a Supabase service role key to any `NEXT_PUBLIC_*` variable.
+## Learn More
 
-## Run Locally
+To learn more about Next.js, take a look at the following resources:
 
-```powershell
-cd "C:\Users\danje\OneDrive\Documents\RED CROSS BLOOD BANK\asthethic"
-npm install
-npm run dev -- -p 3002 -H 0.0.0.0
-```
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-Open:
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-```txt
-http://127.0.0.1:3002/
-```
+## Deploy on Vercel
 
-## Demo Accounts
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Create these users in Supabase Auth:
-
-```txt
-donor@redcross.test
-admin@redcross.test
-superadmin@redcross.test
-```
-
-Passwords are stored only by Supabase Auth. Do not put passwords in SQL tables, localStorage, screenshots, or source files.
-
-After creating the users, insert/update their roles in `profiles` using the SQL shown in `SUPABASE_SETUP.md`.
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
