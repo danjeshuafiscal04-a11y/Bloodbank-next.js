@@ -1548,12 +1548,9 @@ button.top-icon-btn {
 
 .login-frame {
   position: relative;
-  min-height: calc(100vh - 42px);
+  min-height: 100vh;
   overflow: hidden;
-  border: 5px solid #7568ff;
-  border-radius: 10px;
   background: #fcf9f8;
-  box-shadow: 0 24px 60px rgb(0 0 0 / 0.35);
 }
 
 .login-frame::before {
