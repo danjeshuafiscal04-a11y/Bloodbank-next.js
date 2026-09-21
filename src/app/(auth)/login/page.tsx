@@ -72,14 +72,9 @@ function LoginContent() {
   }
 
   return (
-    <main className="login-body">
-      <div className="browser-title">
-        <span className="browser-dot"></span>
-        <span>RedCross Portal - Interactive Registration &amp; Login</span>
-      </div>
-
-      <section className="login-frame">
-        <div className="login-inner">
+    <main className="min-h-screen bg-[#fcf9f8]">
+      <section className="login-frame border-none !shadow-none !rounded-none !min-h-screen">
+        <div className="login-inner !min-h-screen">
           <header className="login-brand">
             <div className="login-brand-title">
               <span className="font-medium text-red-600">bloodtype</span>
