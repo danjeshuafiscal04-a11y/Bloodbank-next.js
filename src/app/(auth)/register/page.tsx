@@ -64,33 +64,20 @@ export default function RegisterPage() {
         password: formData.password,
         options: {
           data: {
-            full_name: formData.full_name
+            full_name: formData.full_name,
+            phone: formData.phone || null,
+            address: formData.address || null,
+            blood_type: formData.blood_type || null,
+            weight: formData.weight || null,
+            age: formData.age || null,
+            last_donation_date: formData.last_donation_at || null,
+            other_medical_details: formData.medical_notes || null,
+            medical_history: medicalFlags
           }
         }
       })
 
       if (authError) throw authError
-
-      if (authData.user) {
-        const { error: donorError } = await supabase.from('donors').insert({
-          supabase_user_id: authData.user.id,
-          full_name: formData.full_name,
-          email: formData.email,
-          phone: formData.phone || null,
-          blood_type: formData.blood_type || null,
-          age: formData.age ? parseInt(formData.age) : null,
-          weight: formData.weight ? parseFloat(formData.weight) : null,
-          address: formData.address || null,
-          last_donation_at: formData.last_donation_at || null,
-          medical_history: {
-            flags: medicalFlags,
-            notes: formData.medical_notes
-          },
-          status: 'active'
-        })
-
-        if (donorError) throw donorError
-      }
 
       router.push('/login?portal=donor&registered=true')
     } catch (err: any) {

@@ -53,7 +53,7 @@ function LoginContent() {
       const { data: profile } = await supabase
         .from('profiles')
         .select('role')
-        .eq('supabase_user_id', data.user.id)
+        .eq('id', data.user.id)
         .single()
 
       const role = profile?.role || 'donor'
