@@ -14,7 +14,7 @@ export default async function DonorLayout({ children }: { children: React.ReactN
   const { data: profile } = await supabase
     .from('donors')
     .select('*')
-    .eq('supabase_user_id', user.id)
+    .eq('profile_id', user.id)
     .single()
 
   return (

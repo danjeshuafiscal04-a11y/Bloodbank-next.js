@@ -10,7 +10,7 @@ export default async function AdminInventoryPage({
   const supabase = await createClient()
   const q = typeof searchParams.q === 'string' ? searchParams.q : ''
 
-  let query = supabase.from('inventory').select('*').order('created_at', { ascending: false })
+  let query = supabase.from('inventory_units').select('*').order('created_at', { ascending: false })
   
   if (q) {
     query = query.ilike('unit_id', `%${q}%`)

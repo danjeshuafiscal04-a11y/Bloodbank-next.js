@@ -9,13 +9,13 @@ export default async function DonorDashboardPage() {
   const { data: profile } = await supabase
     .from('donors')
     .select('*')
-    .eq('supabase_user_id', user?.id)
+    .eq('profile_id', user?.id)
     .single()
 
   const { data: appointments } = await supabase
     .from('appointments')
     .select('*')
-    .eq('donor_id', profile?.id)
+    .eq('profile_id', user?.id)
     .order('scheduled_at', { ascending: false })
 
   const appointmentRows = appointments || []

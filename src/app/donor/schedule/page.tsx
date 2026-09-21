@@ -44,15 +44,14 @@ export default function SchedulePage() {
 
     try {
       const { data: { user } } = await supabase.auth.getUser()
-      const { data: profile } = await supabase.from('donors').select('id').eq('supabase_user_id', user?.id).single()
 
-      if (!profile) throw new Error('Donor profile not found')
+      if (!user) throw new Error('User not found')
 
       const scheduled_at = scheduledDate ? new Date(`${scheduledDate} ${scheduledTime}`).toISOString() : new Date().toISOString()
 
       const { error: insertError } = await supabase.from('appointments').insert({
-        donor_id: profile.id,
-        donation_center_id: 1, // Using integer if DB expects it, or use centerId string if adapted. Keeping fallback 1 for simplicity.
+        profile_id: user.id,
+        donation_center_id: centerId || 'CTR-SR-LAGUNA',
         service_type: serviceType,
         scheduled_at: scheduled_at,
         status: 'pending'

@@ -14,7 +14,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   const { data: profile } = await supabase
     .from('profiles')
     .select('*')
-    .eq('supabase_user_id', user.id)
+    .eq('id', user.id)
     .single()
 
   if (profile?.role !== 'admin' && profile?.role !== 'super_admin') {

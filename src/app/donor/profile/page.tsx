@@ -6,9 +6,9 @@ export default async function ProfilePage() {
   const { data: { user } } = await supabase.auth.getUser()
 
   const { data: profile } = await supabase
-    .from('donors')
+    .from('profiles')
     .select('*')
-    .eq('supabase_user_id', user?.id)
+    .eq('id', user?.id)
     .single()
 
   const name = profile?.full_name || 'Donor'
@@ -19,12 +19,18 @@ export default async function ProfilePage() {
     const supabase = await createClient()
     const { data: { user } } = await supabase.auth.getUser()
     
-    await supabase.from('donors').update({
+    await supabase.from('profiles').update({
       full_name: formData.get('full_name'),
       phone: formData.get('phone'),
       blood_type: formData.get('blood_type'),
       address: formData.get('address')
-    }).eq('supabase_user_id', user?.id)
+    }).eq('id', user?.id)
+
+    await supabase.from('donors').update({
+      full_name: formData.get('full_name'),
+      contact: formData.get('phone'),
+      blood_type: formData.get('blood_type')
+    }).eq('profile_id', user?.id)
 
     revalidatePath('/donor/profile')
   }

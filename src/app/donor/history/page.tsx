@@ -4,16 +4,10 @@ export default async function HistoryPage() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
-  const { data: profile } = await supabase
-    .from('donors')
-    .select('id')
-    .eq('supabase_user_id', user?.id)
-    .single()
-
   const { data: appointments } = await supabase
     .from('appointments')
     .select('*')
-    .eq('donor_id', profile?.id)
+    .eq('profile_id', user?.id)
     .order('scheduled_at', { ascending: false })
 
   const rows = appointments || []

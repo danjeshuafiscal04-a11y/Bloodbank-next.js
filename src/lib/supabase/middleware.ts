@@ -42,10 +42,13 @@ export async function updateSession(request: NextRequest) {
   }
 
   if (user && isAuthRoute) {
-    // Check role in db or default to donor routing
-    // For now, redirect to a dashboard resolver or donor dashboard
+    const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).single()
     const url = request.nextUrl.clone()
-    url.pathname = '/donor/dashboard'
+    if (profile?.role === 'admin' || profile?.role === 'super_admin') {
+      url.pathname = '/admin/reports'
+    } else {
+      url.pathname = '/donor/dashboard'
+    }
     return NextResponse.redirect(url)
   }
 
