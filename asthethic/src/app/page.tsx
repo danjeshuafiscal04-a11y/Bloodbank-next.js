@@ -1,0 +1,100 @@
+import Link from 'next/link'
+import { createClient } from '@/lib/supabase/server'
+
+import CampaignCarousel from '@/components/CampaignCarousel'
+
+export default async function LandingPage() {
+  const supabase = await createClient()
+  
+  // Fetch campaigns directly from Supabase
+  const { data: campaigns, error } = await supabase
+    .from('campaigns')
+    .select('*')
+    .order('created_at', { ascending: false })
+    .limit(5)
+
+  if (error) {
+    console.error("Failed to fetch campaigns", error)
+  }
+
+  const campaignList = campaigns || []
+
+  return (
+    <div>
+        <header className="sticky top-0 z-30 border-b border-red-100 bg-white/90 backdrop-blur">
+            <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
+                <div className="text-xl font-extrabold tracking-tight"><span className="text-red-700">bloodtype</span> RedCross Blood Bank</div>
+                <div className="flex gap-3">
+                    <Link className="btn-ghost" href="/login?portal=admin">Staff Login</Link>
+                    <Link className="btn-primary" href="/login">Register Now</Link>
+                </div>
+            </div>
+        </header>
+
+        <section className="mx-auto grid min-h-[620px] max-w-7xl items-center gap-12 px-6 py-16 md:grid-cols-2">
+            <div>
+                <p className="mb-4 text-sm font-bold uppercase tracking-[0.22em] text-red-700">Blood bank management</p>
+                <h1 className="max-w-xl text-5xl font-extrabold leading-tight tracking-tight md:text-6xl">
+                    Every Drop Counts. <span className="text-red-700">Save a Life Today.</span>
+                </h1>
+                <p className="mt-6 max-w-xl text-lg leading-8 text-stone-600">
+                    A full donor, inventory, request, and admin command system for regional blood bank operations.
+                </p>
+                <div className="mt-8 flex flex-wrap gap-4">
+                    <Link className="btn-primary px-8 py-4 text-base" href="/login">Access Portal</Link>
+                    <Link className="btn-secondary px-8 py-4 text-base" href="/login">Submit Blood Request</Link>
+                </div>
+            </div>
+            <div className="relative">
+                <div className="aspect-[4/3] overflow-hidden rounded-2xl border border-red-100 bg-gradient-to-br from-red-100 via-white to-stone-100 shadow-2xl">
+                    <div className="grid h-full place-items-center p-10">
+                        <div className="w-full rounded-2xl bg-white/85 p-8 shadow-xl">
+                            <div className="mb-8 flex items-center justify-between">
+                                <div>
+                                    <p className="text-xs font-bold uppercase tracking-widest text-stone-500">Inventory health</p>
+                                    <p className="mt-1 text-4xl font-extrabold text-red-700">1,842</p>
+                                </div>
+                                <span className="text-5xl text-red-700">♡</span>
+                            </div>
+                            <div className="mt-6 flex h-44 items-end justify-between gap-3 border-t border-red-100 px-1 pt-6">
+                                {[70,45,90,38,76,46,86].map((h, i) => (
+                                    <div key={i} className="flex flex-1 flex-col items-center gap-2">
+                                        <div className="flex h-32 items-end gap-1">
+                                            <span className="bar-hover w-3 rounded-t bg-red-700" data-tip={`Inflow ${h * 6}`} style={{ height: `${Math.max(18, h)}px` }}></span>
+                                            <span className="bar-hover w-3 rounded-t bg-orange-800/80" data-tip={`Outflow ${h * 4}`} style={{ height: `${Math.max(18, h * 0.65)}px` }}></span>
+                                        </div>
+                                        <span className="text-xs text-stone-600">{['Mon','Tue','Wed','Thu','Fri','Sat','Today'][i]}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="absolute -bottom-6 -left-4 rounded-xl bg-red-600 p-5 text-white shadow-xl">
+                    <div className="text-2xl">♡</div>
+                    <p className="mt-2 text-sm font-bold">Certified Care</p>
+                </div>
+            </div>
+        </section>
+
+        <section className="border-y border-red-100 bg-stone-50 py-16">
+            <div className="mx-auto max-w-7xl px-6">
+                <div className="grid gap-6 md:grid-cols-3">
+                    {[
+                        ['Individual Donors', 'Schedule appointments, track eligibility, and view donation history.'],
+                        ['Clinical Requests', 'Hospitals can request blood products with supporting documentation.'],
+                        ['Admin Operations', 'Manage inventory, donor records, reports, alerts, maps, and audits.'],
+                    ].map(([title, text]) => (
+                        <div key={title} className="card p-7">
+                            <h3 className="text-xl font-bold">{title}</h3>
+                            <p className="mt-3 text-sm leading-6 text-stone-600">{text}</p>
+                        </div>
+                    ))}
+                </div>
+
+                <CampaignCarousel campaigns={campaignList} />
+            </div>
+        </section>
+    </div>
+  )
+}

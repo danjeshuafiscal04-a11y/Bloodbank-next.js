@@ -1,0 +1,59 @@
+import { createClient } from '@/lib/supabase/server'
+import { Plus } from 'lucide-react'
+
+export default async function AdminCampaignsPage() {
+  const supabase = await createClient()
+
+  const { data: campaigns } = await supabase
+    .from('campaigns')
+    .select('*')
+    .order('created_at', { ascending: false })
+    
+  const rows = campaigns || []
+
+  return (
+    <div>
+      <header className="page-header">
+        <div>
+          <h2 className="page-title">Campaigns</h2>
+          <p className="page-subtitle">Manage public blood drives and announcements.</p>
+        </div>
+        <button className="btn-primary flex items-center justify-center gap-2">
+          <Plus size={16} />
+          New Campaign
+        </button>
+      </header>
+
+      <section className="campaign-grid">
+        {rows.length > 0 ? (
+          rows.map((campaign) => (
+            <article key={campaign.id} className="campaign-card">
+              <div className="campaign-card-media">
+                <img 
+                  className="h-full w-full object-cover" 
+                  src={campaign.image_url || 'https://images.unsplash.com/photo-1615461066841-6116e61058f4?auto=format&fit=crop&w=900&q=80'} 
+                  alt={campaign.title} 
+                />
+                <span className="badge absolute left-3 top-3 bg-red-700 text-white border-0">
+                  {campaign.status || 'Upcoming'}
+                </span>
+              </div>
+              <div className="p-5">
+                <h3 className="text-lg font-extrabold text-stone-900">{campaign.title}</h3>
+                <p className="mt-2 line-clamp-2 text-sm text-stone-600">{campaign.description}</p>
+                <div className="mt-4 pt-4 border-t border-stone-100 text-xs font-bold text-stone-500 flex justify-between">
+                  <span>{campaign.date_range}</span>
+                  <button className="text-red-700 hover:underline">Edit</button>
+                </div>
+              </div>
+            </article>
+          ))
+        ) : (
+          <div className="col-span-full card p-12 text-center text-stone-500">
+            No campaigns created yet.
+          </div>
+        )}
+      </section>
+    </div>
+  )
+}
