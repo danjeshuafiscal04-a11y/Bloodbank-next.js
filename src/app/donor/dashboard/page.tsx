@@ -75,13 +75,13 @@ export default async function DonorDashboardPage() {
 
   return (
     <div>
-      <header className="page-header">
+      <header className="page-header stagger-1">
         <h2 className="page-title">Welcome back, {firstName}</h2>
         <p className="page-subtitle">Here is your donation overview and health metrics.</p>
       </header>
 
       <section className="metric-grid">
-        <article className="card metric-card is-red">
+        <article className="card metric-card is-red stagger-2">
           <div className="metric-top">
             <p className="metric-label">Total Lives Saved</p>
             <HeartHandshake />
@@ -89,7 +89,7 @@ export default async function DonorDashboardPage() {
           <p className="metric-value">{livesSaved}</p>
         </article>
         
-        <article className="card metric-card">
+        <article className="card metric-card stagger-3">
           <div className="metric-top">
             <p className="metric-label">Next Eligibility</p>
             <CalendarIcon className="red" />
@@ -98,7 +98,7 @@ export default async function DonorDashboardPage() {
           <p className="metric-subtext">{daysRemaining === null ? 'After an approved donation' : `${daysRemaining} days remaining`}</p>
         </article>
         
-        <article className="card metric-card">
+        <article className="card metric-card stagger-4">
           <div className="metric-top">
             <p className="metric-label">Total Donations</p>
             <CheckCircle2 className="red" />
@@ -110,15 +110,15 @@ export default async function DonorDashboardPage() {
 
       <div className="mt-6 split-grid">
         <div className="space-y-6">
-          <section className="card p-6">
+          <section className="card p-6 stagger-4">
             <div className="mb-4 flex items-center justify-between">
               <h2 className="section-title">Upcoming Appointment</h2>
-              <Link href="/donor/schedule" className="text-sm font-bold text-red-700">Book New</Link>
+              <Link href="/donor/schedule" className="text-sm font-bold text-red-700 hover:text-red-800 transition-colors">Book New</Link>
             </div>
-            <div className="flex flex-wrap items-center justify-between gap-4 rounded-xl bg-stone-50 p-4">
+            <div className="flex flex-wrap items-center justify-between gap-4 rounded-xl bg-stone-50 p-4 transition-transform hover:scale-[1.01]">
               <div className="flex items-center gap-4">
-                <span className="grid size-12 place-items-center rounded-lg bg-red-700 text-white">
-                  <Droplet />
+                <span className="grid size-12 place-items-center rounded-lg bg-red-700 text-white shadow-sm">
+                  <Droplet className="animate-pulse" />
                 </span>
                 <div>
                   <p className="font-bold">{nextAppointment?.service_type || 'No appointment booked'}</p>
@@ -133,45 +133,45 @@ export default async function DonorDashboardPage() {
             </div>
           </section>
 
-          <section className="card p-6">
+          <section className="card p-6 stagger-5">
             <h2 className="section-title mb-4">Health Overview</h2>
             {latestApproved ? (
               <div className="grid gap-4 sm:grid-cols-2">
-                <div className="rounded-lg bg-stone-50 p-4 text-center text-sm font-bold">Hemoglobin {latestAnswers.hemoglobin || 'Not recorded'}{latestAnswers.hemoglobin ? ' g/dL' : ''}</div>
-                <div className="rounded-lg bg-stone-50 p-4 text-center text-sm font-bold">Blood Pressure {latestAnswers.blood_pressure || 'Not recorded'}</div>
+                <div className="rounded-lg bg-stone-50 p-4 text-center text-sm font-bold shadow-sm transition-shadow hover:shadow-md">Hemoglobin {latestAnswers.hemoglobin || 'Not recorded'}{latestAnswers.hemoglobin ? ' g/dL' : ''}</div>
+                <div className="rounded-lg bg-stone-50 p-4 text-center text-sm font-bold shadow-sm transition-shadow hover:shadow-md">Blood Pressure {latestAnswers.blood_pressure || 'Not recorded'}</div>
               </div>
             ) : (
-              <div className="rounded-lg bg-stone-50 p-4 text-sm font-semibold text-stone-600">
+              <div className="rounded-lg bg-stone-50 p-4 text-sm font-semibold text-stone-600 shadow-sm">
                 Health metrics will appear after staff approve your donation screening.
               </div>
             )}
           </section>
         </div>
 
-        <section className="card p-6">
+        <section className="card p-6 stagger-5">
           <h3 className="mb-5 flex items-center gap-2 text-xl font-bold text-red-700">
-            <Activity />
+            <Activity className="animate-pulse" />
             Recent Activity
           </h3>
           <div className="space-y-4 text-sm">
             {latestApproved && (
-              <div className="flex gap-3">
-                <CheckCircle2 className="mt-0.5 text-red-700" />
+              <div className="flex gap-3 group">
+                <CheckCircle2 className="mt-0.5 text-red-700 transition-transform group-hover:scale-110" />
                 <div>
-                  <p className="font-bold">Eligibility Approved</p>
+                  <p className="font-bold group-hover:text-red-700 transition-colors">Eligibility Approved</p>
                   <p className="text-stone-600">Your reviewed donation has been approved.</p>
                 </div>
               </div>
             )}
-            <div className="flex gap-3">
-              {nextAppointment ? <CheckCircle2 className="mt-0.5 text-red-700" /> : <CalendarPlus className="mt-0.5 text-red-700" />}
+            <div className="flex gap-3 group">
+              {nextAppointment ? <CheckCircle2 className="mt-0.5 text-red-700 transition-transform group-hover:scale-110" /> : <CalendarPlus className="mt-0.5 text-red-700 transition-transform group-hover:scale-110" />}
               <div>
-                <p className="font-bold">{nextAppointment ? 'Appointment Booked' : 'Ready to Schedule'}</p>
+                <p className="font-bold group-hover:text-red-700 transition-colors">{nextAppointment ? 'Appointment Booked' : 'Ready to Schedule'}</p>
                 <p className="text-stone-600">{nextAppointment ? 'Your appointment is waiting for staff review.' : 'No upcoming appointment yet.'}</p>
               </div>
             </div>
           </div>
-          <Link href="/donor/history" className="btn-secondary mt-10 w-full text-center block">View Full History</Link>
+          <Link href="/donor/history" className="btn-secondary mt-10 w-full text-center block transition-all hover:-translate-y-1 hover:shadow-md">View Full History</Link>
         </section>
       </div>
     </div>

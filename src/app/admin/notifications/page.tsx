@@ -3,18 +3,18 @@ import { Bell } from 'lucide-react'
 export default function AdminNotificationsPage() {
   return (
     <div className="max-w-3xl">
-      <header className="mb-6 flex items-center justify-between">
+      <header className="page-header stagger-1 flex items-center justify-between flex-wrap gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-stone-900">System Notifications</h2>
-          <p className="text-stone-600">Alerts, blood request updates, and system events.</p>
+          <h2 className="page-title">System Notifications</h2>
+          <p className="page-subtitle">Alerts, blood request updates, and system events.</p>
         </div>
-        <button className="text-sm font-bold text-red-700 hover:underline">Mark all as read</button>
+        <button className="text-sm font-bold text-red-700 hover:underline transition-transform hover:scale-105">Mark all as read</button>
       </header>
 
-      <section className="card bg-white border border-stone-200 rounded-xl overflow-hidden shadow-sm divide-y divide-stone-100">
+      <section className="card bg-white border border-stone-200 rounded-xl overflow-hidden shadow-sm divide-y divide-stone-100 stagger-2">
         {[1, 2, 3].map((i) => (
-          <div key={i} className="p-4 flex gap-4 hover:bg-stone-50 transition-colors">
-            <div className="mt-1 flex-shrink-0 grid h-10 w-10 place-items-center rounded-full bg-red-100 text-red-700">
+          <div key={i} className={`p-4 flex gap-4 transition-colors hover:bg-red-50/50`}>
+            <div className="mt-1 flex-shrink-0 grid h-10 w-10 place-items-center rounded-full bg-red-100 text-red-700 transition-transform hover:scale-110">
               <Bell size={18} />
             </div>
             <div>

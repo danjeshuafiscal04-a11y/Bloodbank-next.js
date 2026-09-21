@@ -85,9 +85,9 @@ export default function Sidebar({ portal, isOpen, setIsOpen }: SidebarProps) {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`sidebar-link ${isActive ? 'is-active' : ''}`}
+                className={`sidebar-link transition-all hover:translate-x-1 ${isActive ? 'is-active' : ''}`}
               >
-                <Icon className="sidebar-icon" />
+                <Icon className={`sidebar-icon transition-transform ${isActive ? 'scale-110' : ''}`} />
                 <span>{link.label}</span>
               </Link>
             );
@@ -166,10 +166,10 @@ export default function Sidebar({ portal, isOpen, setIsOpen }: SidebarProps) {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`sidebar-link ${isActive ? 'is-active' : ''}`}
+                className={`sidebar-link transition-all hover:translate-x-1 ${isActive ? 'is-active' : ''}`}
                 onClick={() => setIsOpen(false)}
               >
-                <Icon className="sidebar-icon" />
+                <Icon className={`sidebar-icon transition-transform ${isActive ? 'scale-110' : ''}`} />
                 <span>{link.label}</span>
               </Link>
             );

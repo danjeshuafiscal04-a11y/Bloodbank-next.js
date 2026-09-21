@@ -37,7 +37,7 @@ export default async function ProfilePage() {
 
   return (
     <div className="space-y-6">
-      <section className="card flex max-w-3xl flex-col gap-6 p-6 sm:flex-row sm:items-center">
+      <section className="card stagger-1 flex max-w-3xl flex-col gap-6 p-6 sm:flex-row sm:items-center">
         <div className="grid size-24 place-items-center rounded-full bg-red-100 text-2xl font-extrabold text-red-700">
           {initials}
         </div>
@@ -55,7 +55,7 @@ export default async function ProfilePage() {
         </div>
       </section>
 
-      <form action={saveProfile} className="card max-w-5xl p-6">
+      <form action={saveProfile} className="card stagger-2 max-w-5xl p-6">
         <h2 className="section-title mb-5">Personal Details</h2>
         <div className="form-grid md:grid-cols-2">
           <div>
@@ -79,7 +79,7 @@ export default async function ProfilePage() {
             <input className="input" name="address" defaultValue={profile?.address || ''} />
           </div>
         </div>
-        <button className="btn-primary mt-6" type="submit">
+        <button className="btn-primary mt-6 transition-transform hover:scale-105 shadow-md" type="submit">
           Save Changes
         </button>
       </form>

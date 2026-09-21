@@ -22,17 +22,17 @@ export default async function AdminDonorRecordsPage({
 
   return (
     <div>
-      <header className="page-header">
+      <header className="page-header stagger-1">
         <div>
           <h2 className="page-title">Donor Records</h2>
           <p className="page-subtitle">Manage donor profiles, eligibility, and history.</p>
         </div>
       </header>
 
-      <section className="table-card">
+      <section className="table-card stagger-2">
         <div className="p-4 border-b border-stone-200 flex flex-col sm:flex-row gap-4 justify-between bg-stone-50">
           <SearchPill placeholder="Search by name or email..." />
-          <button className="btn-outline flex items-center gap-2">
+          <button className="btn-outline flex items-center gap-2 transition-transform hover:scale-105 shadow-sm">
             <Filter size={16} />
             Filter
           </button>
@@ -50,7 +50,7 @@ export default async function AdminDonorRecordsPage({
             <tbody>
               {rows.length > 0 ? (
                 rows.map((row) => (
-                  <tr key={row.id}>
+                  <tr key={row.id} className="transition-colors hover:bg-red-50/50">
                     <td className="font-bold text-stone-900">
                       {row.full_name}
                       <div className="text-xs font-normal text-stone-500">{row.email}</div>

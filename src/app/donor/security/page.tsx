@@ -50,23 +50,23 @@ export default function SecurityPage() {
   }
 
   return (
-    <div className="card max-w-4xl p-6">
+    <div className="card max-w-4xl p-6 stagger-1 transition-all hover:shadow-md">
       <h2 className="section-title mb-5">Account Security</h2>
       
       {message && (
-        <div className="mb-4 p-3 bg-green-50 text-green-800 rounded-md border border-green-200 text-sm font-semibold">
+        <div className="mb-4 p-3 bg-green-50 text-green-800 rounded-md border border-green-200 text-sm font-semibold stagger-2">
           {message}
         </div>
       )}
       
       {error && (
-        <div className="mb-4 p-3 bg-red-50 text-red-800 rounded-md border border-red-200 text-sm font-semibold">
+        <div className="mb-4 p-3 bg-red-50 text-red-800 rounded-md border border-red-200 text-sm font-semibold stagger-2">
           {error}
         </div>
       )}
 
       <div className="space-y-4">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 rounded-xl border border-stone-200 bg-stone-50 p-5">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 rounded-xl border border-stone-200 bg-stone-50 p-5 stagger-2 transition-transform hover:-translate-y-1 hover:shadow-sm">
           <div className="flex items-center gap-3">
             <Lock className="text-stone-500" size={24} />
             <div>
@@ -77,14 +77,14 @@ export default function SecurityPage() {
           <button 
             type="button" 
             onClick={() => setShowPasswordReset(!showPasswordReset)}
-            className="btn-secondary shrink-0"
+            className="btn-secondary shrink-0 transition-transform hover:scale-105"
           >
             {showPasswordReset ? 'Cancel' : 'Reset Password'}
           </button>
         </div>
 
         {showPasswordReset && (
-          <form onSubmit={handlePasswordUpdate} className="rounded-xl border border-stone-200 bg-stone-50 p-5 space-y-4">
+          <form onSubmit={handlePasswordUpdate} className="rounded-xl border border-stone-200 bg-stone-50 p-5 space-y-4 stagger-3">
             <div className="form-grid md:grid-cols-2">
               <div>
                 <label className="label" htmlFor="new_password">New Password</label>
@@ -117,7 +117,7 @@ export default function SecurityPage() {
             </div>
             <button 
               disabled={loading}
-              className="btn-primary mt-4" 
+              className="btn-primary mt-4 transition-transform hover:scale-105 shadow-md" 
               type="submit"
             >
               {loading ? 'Saving...' : 'Save New Password'}
@@ -125,7 +125,7 @@ export default function SecurityPage() {
           </form>
         )}
 
-        <label className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 rounded-xl border border-stone-200 bg-stone-50 p-5 cursor-pointer">
+        <label className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 rounded-xl border border-stone-200 bg-stone-50 p-5 cursor-pointer stagger-3 transition-transform hover:-translate-y-1 hover:shadow-sm">
           <div className="flex items-center gap-3">
             <Lock className="text-stone-500" size={24} />
             <div>

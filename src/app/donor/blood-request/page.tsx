@@ -64,22 +64,22 @@ export default function BloodRequestPage() {
 
   return (
     <>
-      <div className="page-header">
+      <div className="page-header stagger-1">
         <h2 className="page-title text-3xl font-extrabold text-stone-900 tracking-tight">Blood Request Form</h2>
         <p className="page-subtitle mt-1 max-w-2xl text-base text-stone-600">Initialize clinical blood requirements for medical facilities. Please provide accurate recipient data and medical justification.</p>
       </div>
 
       {message && (
-        <div className="mb-6 rounded-md bg-blue-50 p-4 text-blue-800 font-semibold border border-blue-200">
+        <div className="mb-6 rounded-md bg-blue-50 p-4 text-blue-800 font-semibold border border-blue-200 stagger-2">
           {message}
         </div>
       )}
 
       <form onSubmit={handleSubmit} className="form-grid split-grid lg:grid-cols-[1fr_320px]">
         <div className="space-y-6">
-          <section className="card">
+          <section className="card stagger-2 p-6 transition-all hover:-translate-y-1 hover:shadow-md">
             <h2 className="section-title">Patient Details</h2>
-            <div className="form-grid grid gap-4 md:grid-cols-2">
+            <div className="form-grid grid gap-4 md:grid-cols-2 mt-4">
               <div>
                 <label className="label">Patient Full Name</label>
                 <input className="input" name="patient_name" value={formData.patient_name} onChange={handleChange} required />
@@ -99,9 +99,9 @@ export default function BloodRequestPage() {
             </div>
           </section>
 
-          <section className="card">
+          <section className="card stagger-3 p-6 transition-all hover:-translate-y-1 hover:shadow-md">
             <h2 className="section-title">Request Specifications</h2>
-            <div className="form-grid grid gap-4 md:grid-cols-2">
+            <div className="form-grid grid gap-4 md:grid-cols-2 mt-4">
               <div>
                 <label className="label">Blood Type Needed</label>
                 <select className="select" name="blood_type" value={formData.blood_type} onChange={handleChange}>
@@ -138,20 +138,20 @@ export default function BloodRequestPage() {
             </div>
           </section>
 
-          <section className="card">
-            <h2 className="section-title">Medical Information</h2>
+          <section className="card stagger-4 p-6 transition-all hover:-translate-y-1 hover:shadow-md">
+            <h2 className="section-title mb-4">Medical Information</h2>
             <label className="label">Diagnosis / Reason for Request</label>
             <textarea className="textarea" name="diagnosis" rows={4} value={formData.diagnosis} onChange={handleChange}></textarea>
             
-            <div className="mt-4 rounded-xl border-2 border-dashed border-red-100 bg-stone-50 p-8 text-center text-stone-600">
+            <div className="mt-4 rounded-xl border-2 border-dashed border-red-100 bg-stone-50 p-8 text-center text-stone-600 transition-colors hover:bg-red-50 cursor-pointer">
               Click to upload or drag and drop<br/><span className="text-xs">PDF, JPG, or DICOM files placeholder</span>
             </div>
           </section>
         </div>
 
         <aside className="space-y-4">
-          <div className="card">
-            <h3 className="section-title">Request Summary</h3>
+          <div className="card stagger-3 p-6 transition-transform hover:-translate-y-1 hover:shadow-md">
+            <h3 className="section-title mb-4">Request Summary</h3>
             <p className="label">Priority Status</p>
             <span className="badge">
               Pending Selection
@@ -160,12 +160,12 @@ export default function BloodRequestPage() {
               <p className="label">Estimated Fulfillment</p>
               <p className="text-xl font-extrabold text-red-700">--:--</p>
             </div>
-            <button disabled={loading} className="btn-primary w-full mt-6" type="submit">
+            <button disabled={loading} className="btn-primary w-full mt-6 transition-transform hover:scale-105 shadow-md" type="submit">
               {loading ? 'Submitting...' : 'Submit Blood Request'}
             </button>
           </div>
 
-          <div className="rounded-xl border border-orange-200 bg-orange-50 p-5 text-orange-950">
+          <div className="rounded-xl border border-orange-200 bg-orange-50 p-5 text-orange-950 stagger-4 transition-transform hover:-translate-y-1">
             <h4 className="font-bold uppercase tracking-wider text-sm">24/7 Clinical Support</h4>
             <p className="mt-2 text-sm">For urgent bypass or logistic inquiries, contact the Hematology Command Center.</p>
           </div>

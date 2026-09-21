@@ -30,7 +30,7 @@ export default async function AdminReportsPage() {
   ]
   return (
     <div data-report-dashboard>
-      <div className="mb-6 flex flex-wrap items-start justify-between gap-4">
+      <div className="mb-6 flex flex-wrap items-start justify-between gap-4 stagger-1">
         <header>
           <h1 className="page-title">Analytics and Reports</h1>
           <p className="page-subtitle">Descriptive statistics for donor operations.</p>
@@ -41,40 +41,40 @@ export default async function AdminReportsPage() {
               <button key={type} className={`report-filter ${idx === 0 ? 'is-active' : ''}`} type="button" data-report-filter={type}>{type}</button>
             ))}
           </div>
-          <a className="btn-outline" href="#">
+          <a className="btn-outline transition-transform hover:scale-105 shadow-sm" href="#">
             <Download /> Generate Report
           </a>
         </div>
       </div>
       <section className="grid gap-4 md:grid-cols-5">
-        <article className="card p-6">
+        <article className="card p-6 stagger-2 transition-all hover:-translate-y-1 hover:shadow-lg">
           <p className="eyebrow">Total Registered</p>
           <p className="mt-5 text-3xl font-extrabold">{total.toLocaleString()}</p>
           <p className="mt-5 text-stone-600">all blood types</p>
         </article>
-        <article className="card p-6">
+        <article className="card p-6 stagger-3 transition-all hover:-translate-y-1 hover:shadow-lg">
           <p className="eyebrow">Eligible Donors</p>
           <p className="mt-5 text-3xl font-extrabold">{eligible.toLocaleString()}</p>
           <p className="mt-5 text-stone-600">{eligibleRatio}% eligible</p>
         </article>
-        <article className="card p-6">
+        <article className="card p-6 stagger-4 transition-all hover:-translate-y-1 hover:shadow-lg">
           <p className="eyebrow">Temp Deferred</p>
           <p className="mt-5 text-3xl font-extrabold">{deferred.toLocaleString()}</p>
           <p className="mt-5 text-stone-600">{deferredRatio}% deferred</p>
         </article>
-        <article className="card p-6">
+        <article className="card p-6 stagger-5 transition-all hover:-translate-y-1 hover:shadow-lg">
           <p className="eyebrow">Ineligible</p>
           <p className="mt-5 text-3xl font-extrabold">{ineligible.toLocaleString()}</p>
           <p className="mt-5 text-stone-600">{ineligibleRatio}% ineligible</p>
         </article>
-        <article className="card p-6 is-red metric-card">
+        <article className="card p-6 is-red metric-card stagger-5 transition-all hover:-translate-y-1 hover:shadow-lg">
           <p className="metric-label">Screened Month</p>
           <p className="mt-5 text-3xl font-extrabold">{total.toLocaleString()}</p>
           <p className="mt-5 text-white">All screenings</p>
         </article>
       </section>
       <section className="mt-6 grid gap-6 lg:grid-cols-3">
-        <article className="card chart-card">
+        <article className="card chart-card stagger-3 transition-all hover:-translate-y-1 hover:shadow-lg">
           <h2 className="section-title">Type Distribution</h2>
           <div className="mt-12 grid place-items-center">
             <div className="donut" data-tooltip="All blood types: 100%"></div>
@@ -88,7 +88,7 @@ export default async function AdminReportsPage() {
           </div>
         </article>
         
-        <article className="card chart-card">
+        <article className="card chart-card stagger-4 transition-all hover:-translate-y-1 hover:shadow-lg">
           <h2 className="section-title">Eligibility Ratio</h2>
           <div className="mt-10 space-y-5">
             {[
@@ -109,13 +109,13 @@ export default async function AdminReportsPage() {
           </div>
         </article>
         
-        <article className="card chart-card">
+        <article className="card chart-card stagger-5 transition-all hover:-translate-y-1 hover:shadow-lg">
           <h2 className="section-title">Registration Trend</h2>
           <div className="bar-chart mt-8">
             {trend.map((value, idx) => (
               <div 
                 key={idx} 
-                className="bar" 
+                className="bar transition-transform hover:scale-105" 
                 data-tooltip={`${['Mon','Tue','Wed','Thu','Fri','Sat','Today'][idx]} registered: ${value}`} 
                 style={{ height: `${Math.max(8, Math.round((value / maxTrend) * 100))}%` }}
               ></div>

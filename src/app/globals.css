@@ -3434,6 +3434,49 @@ html.has-modal-open .sidebar {
   }
 }
 
+@keyframes fade-up {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes panel-fade {
+  0% {
+    opacity: 0;
+    transform: scale(0.99);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse-subtle {
+  0% { box-shadow: 0 0 0 0 rgba(213, 0, 0, 0.2); }
+  70% { box-shadow: 0 0 0 10px rgba(213, 0, 0, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(213, 0, 0, 0); }
+}
+
+.stagger-1, .stagger-2, .stagger-3, .stagger-4, .stagger-5 {
+  animation: fade-up 360ms ease both;
+}
+
+.stagger-1 { animation-delay: 75ms; }
+.stagger-2 { animation-delay: 150ms; }
+.stagger-3 { animation-delay: 225ms; }
+.stagger-4 { animation-delay: 300ms; }
+.stagger-5 { animation-delay: 375ms; }
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  border-radius: 999px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

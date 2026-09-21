@@ -69,19 +69,19 @@ export default function SchedulePage() {
 
   return (
     <div>
-      <header className="page-header">
+      <header className="page-header stagger-1">
         <h2 className="page-title">Book Your Life-Saving Appointment</h2>
         <p className="page-subtitle">Choose your preferred slot below.</p>
       </header>
 
       {error && (
-        <div className="mb-6 rounded-md border border-red-200 bg-red-50 p-3 text-red-800">
+        <div className="mb-6 rounded-md border border-red-200 bg-red-50 p-3 text-red-800 stagger-2">
           {error}
         </div>
       )}
 
       {confirmed && (
-        <section className="schedule-confirmed card">
+        <section className="schedule-confirmed card stagger-2">
             <div className="schedule-confirmed-flag">
                 <Check />
                 <strong>{serviceType === 'Blood Request' ? 'Request' : 'Appointment'}<br />Submitted</strong>
@@ -89,12 +89,12 @@ export default function SchedulePage() {
             <div className="schedule-confirmed-copy">
                 <h2>Salamat, Donor!</h2>
                 <p>{serviceType === 'Blood Request' ? 'Your blood request has been submitted for review.' : 'Your appointment is scheduled and waiting for staff review.'}</p>
-                <button className="btn-primary mt-6" type="button" onClick={() => { setConfirmed(false); setStep(1); }}>Book Another</button>
+                <button className="btn-primary mt-6 transition-transform hover:scale-105 shadow-md" type="button" onClick={() => { setConfirmed(false); setStep(1); }}>Book Another</button>
             </div>
         </section>
       )}
 
-      <div className={`schedule-wizard ${confirmed ? 'is-confirmed' : ''}`} hidden={confirmed}>
+      <div className={`schedule-wizard ${confirmed ? 'is-confirmed' : ''} stagger-2`} hidden={confirmed}>
           <div className="card mb-6 schedule-steps">
               {steps.map((label, index) => (
                   <div key={label} className={`schedule-step ${step === index + 1 ? 'is-active' : ''}`}>
@@ -375,11 +375,11 @@ export default function SchedulePage() {
               </form>
 
               <aside className="space-y-4">
-                  <div className="card p-5">
+                  <div className="card stagger-3 p-5 transition-transform hover:-translate-y-1 hover:shadow-md">
                       <h3 className="font-bold text-red-700">Prep Tips</h3>
                       <p className="mt-2 text-sm text-stone-600">Hydrate and bring a valid ID before your visit.</p>
                   </div>
-                  <div className="rounded-xl bg-red-700 p-5 text-white shadow-lg">
+                  <div className="rounded-xl stagger-4 bg-red-700 p-5 text-white shadow-lg transition-transform hover:-translate-y-1">
                       <p className="text-xs font-bold uppercase">Your lifetime impact</p>
                       <p className="mt-2 text-2xl font-extrabold">12 Lives Saved</p>
                   </div>
