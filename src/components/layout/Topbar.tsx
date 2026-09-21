@@ -16,7 +16,7 @@ export default function Topbar({ title, onOpenNotifications }: TopbarProps) {
         <h1 className="topbar-title" data-topbar-title>{title}</h1>
       </div>
       <div className="topbar-actions">
-        <div className="search-pill">
+        <div className="search-pill hidden md:block">
           <Search />
           <input type="text" placeholder="Search records..." aria-label="Search records" />
         </div>

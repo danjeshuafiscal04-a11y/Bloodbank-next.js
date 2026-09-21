@@ -123,7 +123,7 @@ export default function SchedulePage() {
                           ].map(([name, question]) => (
                               <label key={name} className="flex items-center justify-between gap-4 rounded-lg border border-red-100 bg-stone-50 p-4 text-base">
                                   <span>{question}</span>
-                                  <input className="size-4 rounded border-stone-400" type="checkbox" name={name} value="1" />
+                                  <input className="size-4 shrink-0 rounded border-stone-400" type="checkbox" name={name} value="1" />
                               </label>
                           ))}
                       </div>

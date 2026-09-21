@@ -27,8 +27,8 @@ export default async function AdminCampaignsPage() {
       <section className="campaign-grid stagger-2">
         {rows.length > 0 ? (
           rows.map((campaign, i) => (
-            <article key={campaign.id} className={`campaign-card stagger-${Math.min((i % 4) + 2, 5)} transition-all hover:-translate-y-1 hover:shadow-lg`}>
-              <div className="campaign-card-media">
+            <article key={campaign.id} className={`campaign-card flex flex-col h-full stagger-${Math.min((i % 4) + 2, 5)} transition-all hover:-translate-y-1 hover:shadow-lg`}>
+              <div className="campaign-card-media shrink-0">
                 <img 
                   className="h-full w-full object-cover transition-transform hover:scale-105 duration-500" 
                   src={campaign.image_url || 'https://images.unsplash.com/photo-1615461066841-6116e61058f4?auto=format&fit=crop&w=900&q=80'} 
@@ -38,10 +38,10 @@ export default async function AdminCampaignsPage() {
                   {campaign.status || 'Upcoming'}
                 </span>
               </div>
-              <div className="p-5">
+              <div className="p-5 flex flex-col flex-1">
                 <h3 className="text-lg font-extrabold text-stone-900">{campaign.title}</h3>
-                <p className="mt-2 line-clamp-2 text-sm text-stone-600">{campaign.description}</p>
-                <div className="mt-4 pt-4 border-t border-stone-100 text-xs font-bold text-stone-500 flex justify-between">
+                <p className="mt-2 text-sm text-stone-600 flex-1">{campaign.description}</p>
+                <div className="mt-4 pt-4 border-t border-stone-100 text-xs font-bold text-stone-500 flex justify-between shrink-0">
                   <span>{campaign.date_range}</span>
                   <button className="text-red-700 hover:underline">Edit</button>
                 </div>

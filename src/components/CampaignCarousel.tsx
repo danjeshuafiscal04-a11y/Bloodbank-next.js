@@ -40,9 +40,9 @@ export default function CampaignCarousel({ campaigns }: { campaigns: any[] }) {
             campaigns.map((campaign) => (
               <article 
                 key={campaign.id} 
-                className="card campaign-card group w-[75vw] min-w-[260px] max-w-[300px] shrink-0 snap-start overflow-hidden text-left transition duration-300 hover:-translate-y-1 hover:shadow-xl sm:w-auto sm:min-w-0 sm:max-w-none sm:snap-align-none"
+                className="card campaign-card flex flex-col group w-[75vw] min-w-[260px] max-w-[300px] shrink-0 snap-start overflow-hidden text-left transition duration-300 hover:-translate-y-1 hover:shadow-xl sm:w-auto sm:min-w-0 sm:max-w-none sm:snap-align-none h-full"
               >
-                <div className="relative h-32 overflow-hidden bg-red-50 sm:h-36">
+                <div className="relative h-32 overflow-hidden bg-red-50 sm:h-36 shrink-0">
                   <img 
                     className="campaign-image h-full w-full object-cover" 
                     src={campaign.image_url || 'https://images.unsplash.com/photo-1615461066841-6116e61058f4?auto=format&fit=crop&w=900&q=80'} 
@@ -52,12 +52,12 @@ export default function CampaignCarousel({ campaigns }: { campaigns: any[] }) {
                     {campaign.status || 'Upcoming'}
                   </span>
                 </div>
-                <div className="p-4 sm:p-5">
+                <div className="p-4 sm:p-5 flex flex-col flex-1">
                   <h3 className="text-base font-extrabold leading-snug sm:text-lg">{campaign.title}</h3>
-                  <p className="mt-1.5 line-clamp-2 text-sm leading-5 text-stone-600 sm:mt-2 sm:line-clamp-3 sm:leading-6">
+                  <p className="mt-1.5 text-sm leading-5 text-stone-600 sm:mt-2 sm:leading-6 flex-1">
                     {campaign.description}
                   </p>
-                  <p className="mt-3 text-[11px] font-bold text-stone-500 sm:mt-4 sm:text-xs">
+                  <p className="mt-3 text-[11px] font-bold text-stone-500 sm:mt-4 sm:text-xs shrink-0">
                     {campaign.date_range || ''} - {campaign.locations || ''}
                   </p>
                 </div>

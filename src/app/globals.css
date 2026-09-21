@@ -94,7 +94,8 @@ h6,
 button,
 .card,
 .panel {
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 a {
@@ -138,7 +139,12 @@ table {
 .portal-content {
   flex: 1;
   overflow-x: hidden;
-  padding: 2rem;
+  padding: 1rem;
+}
+@media (min-width: 768px) {
+  .portal-content {
+    padding: 2rem;
+  }
 }
 
 .portal-panel {
@@ -156,7 +162,6 @@ table {
 }
 
 .sidebar {
-  display: none;
   width: 16rem;
   height: 100vh;
   position: sticky;
@@ -235,30 +240,31 @@ table {
   top: 0;
   z-index: 20;
   display: flex;
-  height: 4rem;
+  min-height: 4rem;
   min-width: 0;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
   border-bottom: 1px solid rgb(254 202 202 / 0.95);
   background: rgb(255 255 255 / 0.9);
-  padding: 0 1.25rem;
+  padding: 0.5rem 1.25rem;
   backdrop-filter: blur(12px);
 }
 
 .topbar-title {
   min-width: 0;
-  overflow: hidden;
   color: #b70100;
   font-size: 1.25rem;
   font-weight: 900;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  word-wrap: break-word;
 }
 
 .topbar-actions {
   margin-left: auto;
   display: flex;
   min-width: 0;
+  flex-shrink: 0;
   align-items: center;
   gap: 0.75rem;
   color: #44403c;
@@ -266,7 +272,6 @@ table {
 
 .search-pill {
   position: relative;
-  display: none;
   min-width: 0;
 }
 
@@ -281,7 +286,8 @@ table {
 }
 
 .search-pill input {
-  width: 20rem;
+  width: 100%;
+  max-width: 20rem;
   border: 1px solid rgb(254 202 202 / 1);
   border-radius: 999px;
   background: #fafaf9;
@@ -349,11 +355,7 @@ button.top-icon-btn {
   gap: 0.45rem;
 }
 
-.mobile-rail,
-.mobile-drawer,
-.mobile-drawer-backdrop {
-  display: none;
-}
+/* mobile components rely on tailwind classes now */
 
 .mobile-rail {
   width: 3.5rem;
@@ -567,7 +569,7 @@ button.top-icon-btn {
 
 .metric-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
   gap: 1.5rem;
 }
 
@@ -796,13 +798,18 @@ button.top-icon-btn {
 
 .form-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
   gap: 1.25rem;
 }
 
 .split-grid {
   display: grid;
   gap: 1.5rem;
+}
+@media (min-width: 1024px) {
+  .split-grid {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  }
 }
 
 .chart-card {
@@ -941,7 +948,7 @@ button.top-icon-btn {
 
 .campaign-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr));
   gap: 1.5rem;
 }
 
@@ -985,6 +992,7 @@ button.top-icon-btn {
 }
 
 .campaign-card-media {
+  position: relative;
   overflow: hidden;
 }
 
@@ -1148,8 +1156,9 @@ button.top-icon-btn {
 }
 
 .schedule-steps {
-  display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
   gap: 1rem;
   padding: 1rem;
 }
@@ -1191,7 +1200,12 @@ button.top-icon-btn {
 .schedule-service-grid {
   display: grid;
   gap: 1.25rem;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: 1fr;
+}
+@media (min-width: 640px) {
+  .schedule-service-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 .schedule-choice {
@@ -1373,8 +1387,13 @@ button.top-icon-btn {
 
 .schedule-date-grid {
   display: grid;
-  grid-template-columns: minmax(260px, 1fr) minmax(260px, 1fr);
+  grid-template-columns: 1fr;
   gap: 1.5rem;
+}
+@media (min-width: 768px) {
+  .schedule-date-grid {
+    grid-template-columns: minmax(260px, 1fr) minmax(260px, 1fr);
+  }
 }
 
 .schedule-date-card {
@@ -1419,11 +1438,16 @@ button.top-icon-btn {
 
 .schedule-review {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: 1fr;
   gap: 2rem;
   border-radius: 0.75rem;
   background: #fafaf9;
   padding: 1.25rem;
+}
+@media (min-width: 640px) {
+  .schedule-review {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 .schedule-review strong,
@@ -1445,7 +1469,12 @@ button.top-icon-btn {
   display: grid;
   min-height: 14.7rem;
   overflow: hidden;
-  grid-template-columns: 260px 1fr;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 768px) {
+  .schedule-confirmed {
+    grid-template-columns: 260px 1fr;
+  }
 }
 
 .schedule-confirmed-flag {
@@ -2247,7 +2276,7 @@ button.top-icon-btn {
   margin-top: 0.35rem;
   color: #1c1b1b;
   font-weight: 850;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
   word-break: break-word;
 }
 
@@ -2373,7 +2402,7 @@ button.top-icon-btn {
 .staff-profile-summary p:last-child {
   margin-top: 0.2rem;
   color: #6b5f5f;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
 }
 
 .staff-profile-readonly {

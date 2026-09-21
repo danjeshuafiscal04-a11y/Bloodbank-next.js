@@ -66,7 +66,7 @@ export default function Sidebar({ portal, isOpen, setIsOpen }: SidebarProps) {
   return (
     <>
       {/* Desktop Sidebar */}
-      <aside className="sidebar hidden md:flex">
+      <aside className="sidebar hidden md:flex flex-col">
         <div className="sidebar-brand">
           <div className="sidebar-title">{isDonor ? 'RedCross Blood Bank' : 'RedCross Admin'}</div>
           <div className="sidebar-subtitle">{isDonor ? 'Type O Negative Donor' : 'Blood Bank Management'}</div>
@@ -103,7 +103,7 @@ export default function Sidebar({ portal, isOpen, setIsOpen }: SidebarProps) {
       </aside>
 
       {/* Mobile Rail */}
-      <div className="mobile-rail md:hidden" aria-label="Portal shortcuts">
+      <div className="mobile-rail flex flex-col items-center border-r bg-[#faf9f8] py-2 md:hidden" aria-label="Portal shortcuts">
         <button className="mobile-rail-brand" type="button" onClick={() => setIsOpen(true)}>
           {isDonor ? <Droplet className="sidebar-icon" /> : <ShieldPlus className="sidebar-icon" />}
         </button>
@@ -136,13 +136,13 @@ export default function Sidebar({ portal, isOpen, setIsOpen }: SidebarProps) {
 
       {/* Mobile Drawer Backdrop */}
       <div 
-        className="mobile-drawer-backdrop md:hidden" 
+        className={`mobile-drawer-backdrop md:hidden ${isOpen ? 'is-open' : ''}`}
         hidden={!isOpen}
         onClick={() => setIsOpen(false)}
       ></div>
 
       {/* Mobile Drawer */}
-      <aside className="mobile-drawer md:hidden" aria-hidden={!isOpen} hidden={!isOpen}>
+      <aside className={`mobile-drawer flex flex-col md:hidden ${isOpen ? 'is-open' : ''}`} aria-hidden={!isOpen} hidden={!isOpen}>
         <div className="mobile-drawer-header">
           <div>
             <div className="mobile-drawer-title">{isDonor ? 'RedCross Blood Bank' : 'RedCross Admin'}</div>

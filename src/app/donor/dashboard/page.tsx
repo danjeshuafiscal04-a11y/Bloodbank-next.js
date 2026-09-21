@@ -156,7 +156,7 @@ export default async function DonorDashboardPage() {
           <div className="space-y-4 text-sm">
             {latestApproved && (
               <div className="flex gap-3 group">
-                <CheckCircle2 className="mt-0.5 text-red-700 transition-transform group-hover:scale-110" />
+                <CheckCircle2 className="mt-0.5 shrink-0 text-red-700 transition-transform group-hover:scale-110" />
                 <div>
                   <p className="font-bold group-hover:text-red-700 transition-colors">Eligibility Approved</p>
                   <p className="text-stone-600">Your reviewed donation has been approved.</p>
@@ -164,7 +164,7 @@ export default async function DonorDashboardPage() {
               </div>
             )}
             <div className="flex gap-3 group">
-              {nextAppointment ? <CheckCircle2 className="mt-0.5 text-red-700 transition-transform group-hover:scale-110" /> : <CalendarPlus className="mt-0.5 text-red-700 transition-transform group-hover:scale-110" />}
+              {nextAppointment ? <CheckCircle2 className="mt-0.5 shrink-0 text-red-700 transition-transform group-hover:scale-110" /> : <CalendarPlus className="mt-0.5 shrink-0 text-red-700 transition-transform group-hover:scale-110" />}
               <div>
                 <p className="font-bold group-hover:text-red-700 transition-colors">{nextAppointment ? 'Appointment Booked' : 'Ready to Schedule'}</p>
                 <p className="text-stone-600">{nextAppointment ? 'Your appointment is waiting for staff review.' : 'No upcoming appointment yet.'}</p>
