@@ -74,6 +74,16 @@ export default function ReportsDashboard({ initialDonors }: { initialDonors: any
     const x = e.clientX - centerX;
     const y = e.clientY - centerY;
     
+    const distance = Math.sqrt(x * x + y * y);
+    const outerRadius = rect.width / 2;
+    // Inner hole is created via inset: 1.8rem, which is roughly 65-70% of the radius.
+    const innerRadius = outerRadius * 0.65; 
+    
+    if (distance < innerRadius) {
+      e.currentTarget.setAttribute('data-tooltip', tooltipText);
+      return;
+    }
+
     let angle = Math.atan2(y, x) * (180 / Math.PI);
     angle += 90;
     if (angle < 0) angle += 360;
