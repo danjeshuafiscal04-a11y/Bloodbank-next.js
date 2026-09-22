@@ -1,35 +1,81 @@
 import { createClient } from '@/lib/supabase/server'
 import { FileText, Download, Activity } from 'lucide-react'
 import GenerateReportButton from '@/components/admin/GenerateReportButton'
+import Link from 'next/link'
 
-export default async function AdminReportsPage() {
+export default async function AdminReportsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ type?: string }>
+}) {
+  const resolvedParams = await searchParams
+  const selectedType = resolvedParams.type || 'All'
+
   const supabase = await createClient()
-  // Fetch some summary data for reports
-  const { count: donorsCount } = await supabase.from('donors').select('*', { count: 'exact', head: true }) || { count: 0 }
-  const { count: eligibleCount } = await supabase.from('donors').select('*', { count: 'exact', head: true }).eq('eligibility_status', 'eligible') || { count: 0 }
-  const { count: deferredCount } = await supabase.from('donors').select('*', { count: 'exact', head: true }).ilike('eligibility_status', '%defer%') || { count: 0 }
   
-  const total = donorsCount || 1
+  let baseQuery = supabase.from('donors').select('*', { count: 'exact', head: true })
+  let eligibleQuery = supabase.from('donors').select('*', { count: 'exact', head: true }).eq('eligibility_status', 'Eligible')
+  let deferredQuery = supabase.from('donors').select('*', { count: 'exact', head: true }).ilike('eligibility_status', '%defer%')
+
+  if (selectedType !== 'All') {
+    baseQuery = baseQuery.eq('blood_type', selectedType)
+    eligibleQuery = eligibleQuery.eq('blood_type', selectedType)
+    deferredQuery = deferredQuery.eq('blood_type', selectedType)
+  }
+
+  const [{ count: donorsCount }, { count: eligibleCount }, { count: deferredCount }] = await Promise.all([
+    baseQuery,
+    eligibleQuery,
+    deferredQuery
+  ])
+  
+  const total = donorsCount || 0
   const eligible = eligibleCount || 0
   const deferred = deferredCount || 0
   const ineligible = total - eligible - deferred
   
-  const eligibleRatio = Math.round((eligible / total) * 100)
-  const deferredRatio = Math.round((deferred / total) * 100)
-  const ineligibleRatio = Math.round((ineligible / total) * 100)
+  const eligibleRatio = total > 0 ? Math.round((eligible / total) * 100) : 0
+  const deferredRatio = total > 0 ? Math.round((deferred / total) * 100) : 0
+  const ineligibleRatio = total > 0 ? Math.round((ineligible / total) * 100) : 0
+  
   // Dummy trend
   const trend = [12, 19, 15, 25, 22, 18, 30]
   const maxTrend = Math.max(...trend)
-  const reportDistribution = [
-    { type: 'O+', share: 45, color: '#b70100' },
-    { type: 'O-', share: 7, color: '#9a452a' },
-    { type: 'A+', share: 27, color: '#775043' },
-    { type: 'A-', share: 6, color: '#ba1a1a' },
-    { type: 'B+', share: 9, color: '#ff9473' },
-    { type: 'B-', share: 2, color: '#ffb59f' },
-    { type: 'AB+', share: 3, color: '#623e32' },
-    { type: 'AB-', share: 1, color: '#e60000' }
+  
+  const fullDistribution = [
+    { type: 'O+', share: 20, color: '#b70100' },
+    { type: 'O-', share: 10, color: '#9a452a' },
+    { type: 'A+', share: 20, color: '#775043' },
+    { type: 'A-', share: 10, color: '#ba1a1a' },
+    { type: 'B+', share: 10, color: '#ff9473' },
+    { type: 'B-', share: 10, color: '#ffb59f' },
+    { type: 'AB+', share: 10, color: '#623e32' },
+    { type: 'AB-', share: 10, color: '#e60000' }
   ]
+
+  let reportDistribution = fullDistribution
+  let donutStyle = {}
+  let tooltipText = "All blood types: 100%"
+  
+  if (selectedType !== 'All') {
+    const selectedShare = fullDistribution.find(d => d.type === selectedType)?.share || 0;
+    reportDistribution = [
+      { type: selectedType, share: selectedShare, color: '#b70100' },
+      { type: 'Other Blood Types', share: 100 - selectedShare, color: '#e5e7eb' }
+    ]
+    donutStyle = {
+      background: `conic-gradient(#b70100 0 ${selectedShare}%, #e5e7eb ${selectedShare}% 100%)`
+    }
+    tooltipText = `${selectedType}: ${selectedShare}% | Other: ${100 - selectedShare}%`
+  }
+
+  // Recent donors fetch
+  let recordsQuery = supabase.from('donors').select('*').order('created_at', { ascending: false }).limit(5)
+  if (selectedType !== 'All') {
+    recordsQuery = recordsQuery.eq('blood_type', selectedType)
+  }
+  const { data: recentDonors } = await recordsQuery
+
   return (
     <div data-report-dashboard>
       <div className="mb-6 flex flex-wrap items-start justify-between gap-4 stagger-1">
@@ -39,18 +85,32 @@ export default async function AdminReportsPage() {
         </header>
         <div className="flex flex-wrap items-center gap-3">
           <div className="report-filter-group" role="tablist" aria-label="Blood type report filter">
-            {['All', 'O+', 'O-', 'A+', 'A-', 'B+', 'B-', 'AB+', 'AB-'].map((type, idx) => (
-              <button key={type} className={`report-filter ${idx === 0 ? 'is-active' : ''}`} type="button" data-report-filter={type}>{type}</button>
-            ))}
+            {['All', 'O+', 'O-', 'A+', 'A-', 'B+', 'B-', 'AB+', 'AB-'].map((type) => {
+              const isAll = type === 'All'
+              const href = isAll ? '/admin/reports' : `/admin/reports?type=${encodeURIComponent(type)}`
+              const isActive = selectedType === type
+              return (
+                <Link 
+                  key={type} 
+                  href={href} 
+                  className={`report-filter ${isActive ? 'is-active' : ''}`} 
+                  role="tab" 
+                  aria-selected={isActive}
+                >
+                  {type}
+                </Link>
+              )
+            })}
           </div>
           <GenerateReportButton type="admin" data={{ total, eligible }} />
         </div>
       </div>
+      
       <section className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
         <article className="card p-6 stagger-2">
           <p className="eyebrow">Total Registered</p>
           <p className="mt-5 text-3xl font-extrabold">{total.toLocaleString()}</p>
-          <p className="mt-5 text-stone-600">all blood types</p>
+          <p className="mt-5 text-stone-600">{selectedType === 'All' ? 'all blood types' : `${selectedType} donors`}</p>
         </article>
         <article className="card p-6 stagger-3">
           <p className="eyebrow">Eligible Donors</p>
@@ -70,14 +130,15 @@ export default async function AdminReportsPage() {
         <article className="card p-6 is-red metric-card stagger-5">
           <p className="metric-label">Screened Month</p>
           <p className="mt-5 text-3xl font-extrabold">{total.toLocaleString()}</p>
-          <p className="mt-5 text-white">All screenings</p>
+          <p className="mt-5 text-white">{selectedType === 'All' ? 'All screenings' : `${selectedType} screenings`}</p>
         </article>
       </section>
+      
       <section className="mt-6 grid gap-6 lg:grid-cols-3">
         <article className="card chart-card stagger-3">
           <h2 className="section-title">Type Distribution</h2>
           <div className="mt-12 grid place-items-center">
-            <div className="donut" data-tooltip="All blood types: 100%"></div>
+            <div className="donut" data-tooltip={tooltipText} style={donutStyle}></div>
           </div>
           <div className="legend mt-8">
             {reportDistribution.map(segment => (
@@ -125,6 +186,78 @@ export default async function AdminReportsPage() {
             <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Today</span>
           </div>
         </article>
+      </section>
+
+      <section className="mt-6 card table-card stagger-6">
+        <div className="flex justify-between items-center p-6 border-b border-stone-100">
+          <h2 className="section-title mb-0">Recent Donor Records</h2>
+          <Link href="/admin/donor-records" className="text-sm font-semibold text-red-700 hover:underline">View Details</Link>
+        </div>
+        <div className="table-wrap">
+          <table className="data-table">
+            <thead>
+              <tr>
+                <th>Donor Name</th>
+                <th>Blood Type</th>
+                <th>Contact Info</th>
+                <th>Last Donation</th>
+                <th>Status</th>
+                <th>Units</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {recentDonors?.map((row) => {
+                const initials = (row.full_name || 'U').split(' ').map((n: string) => n[0]).join('').substring(0, 2).toUpperCase()
+                return (
+                  <tr key={row.donor_code} className="transition-colors hover:bg-red-50/50">
+                    <td className="font-bold text-stone-900 flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-red-50 text-red-700 flex items-center justify-center font-bold text-sm shrink-0">
+                        {initials}
+                      </div>
+                      <div>
+                        {row.full_name}
+                        <div className="text-xs font-normal text-stone-500">ID: {row.donor_code}</div>
+                      </div>
+                    </td>
+                    <td>
+                      <span className="badge border border-red-200 text-red-700 bg-red-50 rounded-full font-bold px-3 py-1 text-xs">
+                        {row.blood_type || 'Unknown'}
+                      </span>
+                    </td>
+                    <td className="text-stone-600 text-sm">
+                      {row.email || 'N/A'}<br/>
+                      {row.contact || 'N/A'}
+                    </td>
+                    <td className="text-stone-600 text-sm">
+                      {row.last_donation_at ? new Date(row.last_donation_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Never'}
+                    </td>
+                    <td>
+                      <span className="badge border border-red-200 text-red-700 bg-red-50 rounded-full font-bold px-3 py-1 text-xs">
+                        {row.eligibility_status || 'Eligible'}
+                      </span>
+                    </td>
+                    <td className="font-bold text-stone-900 text-center">
+                      {row.total_units || 0}
+                    </td>
+                    <td>
+                      <Link href={`/admin/donor-records/${row.donor_code}`} className="text-sm font-semibold text-red-700 hover:underline">
+                        View
+                      </Link>
+                    </td>
+                  </tr>
+                )
+              })}
+              {(!recentDonors || recentDonors.length === 0) && (
+                <tr>
+                  <td colSpan={7} className="px-6 py-8 text-center text-stone-500">
+                    No recent donor records found.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       </section>
     </div>
   )
