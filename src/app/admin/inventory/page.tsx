@@ -5,10 +5,11 @@ import SearchPill from '@/components/SearchPill'
 export default async function AdminInventoryPage({
   searchParams,
 }: {
-  searchParams: { [key: string]: string | string[] | undefined }
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }) {
   const supabase = await createClient()
-  const q = typeof searchParams.q === 'string' ? searchParams.q : ''
+  const resolvedSearchParams = await searchParams;
+  const q = typeof resolvedSearchParams.q === 'string' ? resolvedSearchParams.q : ''
 
   let query = supabase.from('inventory_units').select('*').order('created_at', { ascending: false })
   

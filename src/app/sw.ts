@@ -7,7 +7,7 @@ declare global {
     __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
   }
 }
-declare const self: ServiceWorkerGlobalScope;
+declare const self: any;
 
 const serwist = new Serwist({
   precacheEntries: self.__SW_MANIFEST,
