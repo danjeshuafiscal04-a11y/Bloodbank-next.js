@@ -55,6 +55,39 @@ export default function ReportsDashboard({ initialDonors }: { initialDonors: any
   // Recent donors fetch
   const recentDonors = filteredDonors.slice(0, 5)
 
+  const handleDonutPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    
+    const x = e.clientX - centerX;
+    const y = e.clientY - centerY;
+    
+    let angle = Math.atan2(y, x) * (180 / Math.PI);
+    angle += 90;
+    if (angle < 0) angle += 360;
+    
+    const percent = (angle / 360) * 100;
+    
+    let cumulative = 0;
+    let hoveredSlice = null;
+    for (const segment of reportDistribution) {
+      cumulative += segment.share;
+      if (percent <= cumulative) {
+        hoveredSlice = segment;
+        break;
+      }
+    }
+    
+    if (hoveredSlice) {
+      e.currentTarget.setAttribute('data-tooltip', `${hoveredSlice.type}: ${hoveredSlice.share}%`);
+    }
+  };
+
+  const handleDonutPointerLeave = (e: React.PointerEvent<HTMLDivElement>) => {
+    e.currentTarget.setAttribute('data-tooltip', tooltipText);
+  };
+
   return (
     <div data-report-dashboard>
       <div className="mb-6 flex flex-wrap items-start justify-between gap-4 stagger-1">
@@ -116,7 +149,14 @@ export default function ReportsDashboard({ initialDonors }: { initialDonors: any
         <article className="card chart-card stagger-3">
           <h2 className="section-title">Type Distribution</h2>
           <div className="mt-12 grid place-items-center">
-            <div className="donut" data-tooltip={tooltipText} style={donutStyle}></div>
+            <div 
+              className="donut" 
+              data-tooltip={tooltipText} 
+              style={donutStyle}
+              onPointerMove={handleDonutPointerMove}
+              onPointerOver={handleDonutPointerMove}
+              onPointerLeave={handleDonutPointerLeave}
+            ></div>
           </div>
           <div className="legend mt-8">
             {reportDistribution.map(segment => (
