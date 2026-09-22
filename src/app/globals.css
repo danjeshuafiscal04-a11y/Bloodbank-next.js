@@ -3825,3 +3825,7 @@ img {
 .metric-value, .badge, .counter, .tabular-nums, .progress-line span, .bar-chart .bar {
   font-variant-numeric: tabular-nums;
 }
+
+.custom-scrollbar { scrollbar-width: thin; scrollbar-color: rgb(254 202 202 / 0.4) transparent; } 
+.custom-scrollbar::-webkit-scrollbar { width: 6px; } 
+.custom-scrollbar::-webkit-scrollbar-thumb { background-color: rgb(254 202 202 / 0.4); border-radius: 10px; }
