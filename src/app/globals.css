@@ -747,7 +747,7 @@ button.top-icon-btn {
 .textarea {
   width: 100%;
   border: 1px solid rgb(254 202 202 / 0.5);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   background: #fafaf9;
   padding: 0.78rem 1rem;
   color: #292524;
@@ -1701,7 +1701,7 @@ button.top-icon-btn {
   width: 100%;
   max-width: 360px;
   border: 1px solid rgb(0 0 0 / 0.04);
-  border-radius: 1.25rem;
+  border-radius: 0.5rem;
   background: white;
   padding: 2.25rem;
   box-shadow: var(--shadow-xl);
