@@ -23,7 +23,7 @@ export default function AdminReportsLoading() {
         <div className="card p-6 h-80 flex flex-col justify-between">
           <div className="h-6 w-48 bg-stone-200 rounded-md mb-4"></div>
           <div className="flex-1 bg-stone-50 rounded-lg flex items-end p-4 gap-2">
-            {[1,2,3,4,5,6,7].map(i => <div key={i} className="flex-1 bg-stone-200 rounded-t-sm" style={{height: `${Math.max(20, Math.random() * 100)}%`}}></div>)}
+            {[20, 45, 80, 30, 60, 90, 50].map((h, i) => <div key={i} className="flex-1 bg-stone-200 rounded-t-sm" style={{height: `${h}%`}}></div>)}
           </div>
         </div>
         <div className="card p-6 h-80 flex flex-col justify-between">
