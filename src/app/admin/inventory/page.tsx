@@ -56,7 +56,7 @@ export default async function AdminInventoryPage({
         })}
       </section>
 
-      <section className="table-card stagger-5">
+      <section className="card table-card stagger-5">
         <div className="p-4 border-b border-stone-200 flex flex-col sm:flex-row gap-4 justify-between bg-stone-50">
           <SearchPill placeholder="Search Unit ID..." />
           <button className="btn-outline flex items-center gap-2 transition-transform hover:scale-105">

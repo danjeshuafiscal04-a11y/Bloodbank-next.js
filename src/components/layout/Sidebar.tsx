@@ -137,12 +137,11 @@ export default function Sidebar({ portal, isOpen, setIsOpen }: SidebarProps) {
       {/* Mobile Drawer Backdrop */}
       <div 
         className={`mobile-drawer-backdrop md:hidden ${isOpen ? 'is-open' : ''}`}
-        hidden={!isOpen}
         onClick={() => setIsOpen(false)}
       ></div>
 
       {/* Mobile Drawer */}
-      <aside className={`mobile-drawer flex flex-col md:hidden ${isOpen ? 'is-open' : ''}`} aria-hidden={!isOpen} hidden={!isOpen}>
+      <aside className={`mobile-drawer flex flex-col md:hidden ${isOpen ? 'is-open' : ''}`} aria-hidden={!isOpen}>
         <div className="mobile-drawer-header">
           <div>
             <div className="mobile-drawer-title">{isDonor ? 'RedCross Blood Bank' : 'RedCross Admin'}</div>

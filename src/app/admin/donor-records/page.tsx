@@ -29,7 +29,7 @@ export default async function AdminDonorRecordsPage({
         </div>
       </header>
 
-      <section className="table-card stagger-2">
+      <section className="card table-card stagger-2">
         <div className="p-4 border-b border-stone-200 flex flex-col sm:flex-row gap-4 justify-between bg-stone-50">
           <SearchPill placeholder="Search by name or email..." />
           <button className="btn-outline flex items-center gap-2 transition-transform hover:scale-105 shadow-sm">

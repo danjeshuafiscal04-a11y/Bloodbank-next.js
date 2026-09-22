@@ -46,7 +46,7 @@ export default async function AdminReportsPage() {
           </a>
         </div>
       </div>
-      <section className="grid gap-4 md:grid-cols-5">
+      <section className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
         <article className="card p-6 stagger-2 transition-all hover:-translate-y-1 hover:shadow-lg">
           <p className="eyebrow">Total Registered</p>
           <p className="mt-5 text-3xl font-extrabold">{total.toLocaleString()}</p>

@@ -38,7 +38,7 @@ export default async function ProfilePage() {
   return (
     <div className="space-y-6">
       <section className="card stagger-1 flex max-w-3xl flex-col gap-6 p-6 sm:flex-row sm:items-center">
-        <div className="grid size-24 place-items-center rounded-full bg-red-100 text-2xl font-extrabold text-red-700">
+        <div className="grid size-24 shrink-0 place-items-center rounded-full bg-red-100 text-2xl font-extrabold text-red-700">
           {initials}
         </div>
         <div>
