@@ -2333,10 +2333,10 @@ button.top-icon-btn {
 
 .detail-hero,
 .detail-section {
-  border: 1px solid #fee2e2;
-  border-radius: 0.75rem;
-  background: #fffafa;
-  padding: 1rem;
+  border: none;
+  background: transparent;
+  padding: 0;
+  margin-top: 1.5rem;
 }
 
 .detail-grid {
@@ -2347,6 +2347,7 @@ button.top-icon-btn {
 
 .detail-grid div,
 .detail-list div {
+  border: 1px solid #fee2e2;
   border-radius: 0.55rem;
   background: white;
   padding: 0.85rem;

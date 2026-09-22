@@ -38,7 +38,7 @@ export default function InventoryFilterDropdown() {
     } else {
       params.set(key, value)
     }
-    router.push(`?${params.toString()}`)
+    router.push(`?${params.toString()}`, { scroll: false })
   }
 
   const resetFilters = () => {
@@ -46,7 +46,7 @@ export default function InventoryFilterDropdown() {
     params.delete('blood_type')
     params.delete('status')
     params.delete('sort')
-    router.push(`?${params.toString()}`)
+    router.push(`?${params.toString()}`, { scroll: false })
     setIsOpen(false)
   }
 
@@ -60,7 +60,7 @@ export default function InventoryFilterDropdown() {
         aria-controls="inventory-filter-menu"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <SlidersHorizontal size={16} className="inline-block mr-2" /> Filter
+        <SlidersHorizontal /> Filter
       </button>
       
       <div 

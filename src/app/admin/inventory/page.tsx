@@ -13,10 +13,33 @@ export default async function AdminInventoryPage({
   const resolvedSearchParams = await searchParams;
   const q = typeof resolvedSearchParams.q === 'string' ? resolvedSearchParams.q : ''
 
-  let query = supabase.from('inventory_units').select('*').order('created_at', { ascending: false })
+  let query = supabase.from('inventory_units').select('*')
   
   if (q) {
     query = query.ilike('unit_code', `%${q}%`)
+  }
+
+  const bloodType = typeof resolvedSearchParams.blood_type === 'string' ? resolvedSearchParams.blood_type : ''
+  if (bloodType && bloodType !== 'all') {
+    query = query.eq('blood_type', bloodType)
+  }
+
+  const status = typeof resolvedSearchParams.status === 'string' ? resolvedSearchParams.status : ''
+  if (status && status !== 'all') {
+    query = query.eq('status', status)
+  }
+
+  const sort = typeof resolvedSearchParams.sort === 'string' ? resolvedSearchParams.sort : 'date-desc'
+  if (sort === 'date-desc') {
+    query = query.order('collection_date', { ascending: false })
+  } else if (sort === 'date-asc') {
+    query = query.order('collection_date', { ascending: true })
+  } else if (sort === 'alpha-asc') {
+    query = query.order('blood_type', { ascending: true }).order('component_type', { ascending: true }).order('unit_code', { ascending: true })
+  } else if (sort === 'alpha-desc') {
+    query = query.order('blood_type', { ascending: false }).order('component_type', { ascending: false }).order('unit_code', { ascending: false })
+  } else {
+    query = query.order('created_at', { ascending: false })
   }
 
   const { data: items } = await query
@@ -57,7 +80,7 @@ export default async function AdminInventoryPage({
     blood_type: r.blood_type,
     component_type: r.component_type || 'Whole Blood',
     unit_code: r.unit_code,
-    collection_date: r.collection_date || 'Not provided',
+    collection_date: r.collection_date ? new Date(r.collection_date).toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' }) : 'Not provided',
     status: r.status
   })) : [
     { blood_type: 'AB+', component_type: 'Platelets', unit_code: '#26007-PL', collection_date: 'Jun 23, 2026', status: 'Quarantined' },
