@@ -1,8 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Search, Bell, Settings, User } from 'lucide-react';
-import Link from 'next/link';
+import { Search, Bell } from 'lucide-react';
 
 interface TopbarProps {
   title: string;
@@ -29,12 +28,6 @@ export default function Topbar({ title, onOpenNotifications }: TopbarProps) {
           <Bell />
           {/* <span className="notification-badge">0</span> */}
         </button>
-        <Link href="/settings" className="top-icon-btn" aria-label="Open settings">
-          <Settings />
-        </Link>
-        <Link href="/profile" className="top-icon-btn" aria-label="Open profile">
-          <User />
-        </Link>
       </div>
     </header>
   );
