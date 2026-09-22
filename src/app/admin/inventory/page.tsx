@@ -2,6 +2,7 @@ import { createClient } from '@/lib/supabase/server'
 import { Activity, AlertTriangle, Database, History, Search, SlidersHorizontal } from 'lucide-react'
 import InventoryHeaderActions from '@/components/admin/InventoryHeaderActions'
 import SearchPill from '@/components/SearchPill'
+import InventoryFilterDropdown from '@/components/admin/InventoryFilterDropdown'
 
 export default async function AdminInventoryPage({
   searchParams,
@@ -196,11 +197,7 @@ export default async function AdminInventoryPage({
               inputClassName="!w-[240px] bg-transparent outline-none text-sm text-stone-900"
               placeholder="Search inventory..."
             />
-            <div className="inventory-filter-wrap">
-              <button className="btn-primary" type="button" data-inventory-filter-toggle aria-expanded="false" aria-controls="inventory-filter-menu">
-                <SlidersHorizontal size={16} className="inline-block mr-2" /> Filter
-              </button>
-            </div>
+            <InventoryFilterDropdown />
           </div>
         </div>
 
