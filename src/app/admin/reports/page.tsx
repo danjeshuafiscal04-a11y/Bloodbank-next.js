@@ -1,5 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { FileText, Download, Activity } from 'lucide-react'
+import GenerateReportButton from '@/components/admin/GenerateReportButton'
+
 export default async function AdminReportsPage() {
   const supabase = await createClient()
   // Fetch some summary data for reports
@@ -41,9 +43,7 @@ export default async function AdminReportsPage() {
               <button key={type} className={`report-filter ${idx === 0 ? 'is-active' : ''}`} type="button" data-report-filter={type}>{type}</button>
             ))}
           </div>
-          <a className="btn-outline" href="#">
-            <Download /> Generate Report
-          </a>
+          <GenerateReportButton type="admin" data={{ total, eligible }} />
         </div>
       </div>
       <section className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">

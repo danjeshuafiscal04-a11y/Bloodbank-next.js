@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { Filter } from 'lucide-react'
 import SearchPill from '@/components/SearchPill'
+import GenerateReportButton from '@/components/admin/GenerateReportButton'
 
 export default async function AdminDonorRecordsPage({
   searchParams,
@@ -23,11 +24,12 @@ export default async function AdminDonorRecordsPage({
 
   return (
     <div>
-      <header className="page-header stagger-1">
+      <header className="page-header stagger-1 flex justify-between items-start flex-wrap gap-4">
         <div>
           <h2 className="page-title">Donor Records</h2>
           <p className="page-subtitle">Manage donor profiles, eligibility, and history.</p>
         </div>
+        <GenerateReportButton type="donors" />
       </header>
 
       <section className="card table-card stagger-2">

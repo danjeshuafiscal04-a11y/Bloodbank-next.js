@@ -1,35 +1,25 @@
-import { Bell } from 'lucide-react'
+import { createClient } from '@/lib/supabase/server'
+import NotificationsClient from '@/components/admin/NotificationsClient'
 
-export default function AdminNotificationsPage() {
-  return (
-    <div className="max-w-3xl">
-      <header className="page-header stagger-1 flex items-center justify-between flex-wrap gap-4">
-        <div>
-          <h2 className="page-title">System Notifications</h2>
-          <p className="page-subtitle">Alerts, blood request updates, and system events.</p>
-        </div>
-        <button className="text-sm font-bold text-red-700 hover:underline transition-transform hover:scale-105">Mark all as read</button>
-      </header>
+export default async function AdminNotificationsPage() {
+  const supabase = await createClient()
 
-      <section className="card bg-white border border-stone-200 rounded-xl overflow-hidden divide-y divide-stone-100 stagger-2">
-        {[1, 2, 3].map((i) => (
-          <div key={i} className={`p-4 flex gap-4 transition-colors hover:bg-red-50/50`}>
-            <div className="mt-1 flex-shrink-0 grid h-10 w-10 place-items-center rounded-full bg-red-100 text-red-700 transition-transform hover:scale-110">
-              <Bell size={18} />
-            </div>
-            <div>
-              <div className="flex items-center gap-2 mb-1">
-                <h4 className="font-bold text-stone-900">Urgent Request Match</h4>
-                <span className="inline-flex items-center px-2 py-0.5 rounded bg-red-100 text-red-800 text-[10px] font-bold uppercase tracking-widest">
-                  New
-                </span>
-              </div>
-              <p className="text-sm text-stone-600 mb-2">Hospital A is urgently requesting 5 units of O- blood. Please review the request queue.</p>
-              <p className="text-xs font-bold text-stone-400">Just now</p>
-            </div>
-          </div>
-        ))}
-      </section>
-    </div>
-  )
+  // Fetch real notifications for admin
+  const { data: notifications } = await supabase
+    .from('notifications')
+    .select('*')
+    .eq('target_role', 'admin')
+    .order('created_at', { ascending: false })
+    .limit(50)
+
+  // Fallback to dummy data if DB has none, just so the UI isn't totally empty while testing
+  const fallback = [
+    { id: '1', title: 'Urgent Request Match', body: 'Hospital A is urgently requesting 5 units of O- blood. Please review the request queue.', time_label: 'Just now', read_at: null },
+    { id: '2', title: 'Low Inventory Alert', body: 'O+ stock is below critical threshold.', time_label: '2 hours ago', read_at: null },
+    { id: '3', title: 'New Donor Campaign', body: 'Summer Drive campaign has ended. 200+ units collected.', time_label: 'Yesterday', read_at: new Date().toISOString() },
+  ]
+
+  const data = notifications && notifications.length > 0 ? notifications : fallback
+
+  return <NotificationsClient initialNotifications={data} />
 }

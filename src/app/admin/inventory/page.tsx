@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
-import { Droplet, Plus, Filter } from 'lucide-react'
+import { Droplet, Filter } from 'lucide-react'
 import SearchPill from '@/components/SearchPill'
+import InventoryHeaderActions from '@/components/admin/InventoryHeaderActions'
 
 export default async function AdminInventoryPage({
   searchParams,
@@ -36,10 +37,7 @@ export default async function AdminInventoryPage({
           <h2 className="page-title">Blood Inventory</h2>
           <p className="page-subtitle">Real-time stock levels and unit tracking.</p>
         </div>
-        <button className="btn-primary flex items-center justify-center gap-2">
-          <Plus size={16} />
-          Log New Unit
-        </button>
+        <InventoryHeaderActions totalUnits={rows.length} />
       </header>
 
       <section className="grid grid-cols-2 gap-4 md:grid-cols-4 xl:grid-cols-8 mb-8">

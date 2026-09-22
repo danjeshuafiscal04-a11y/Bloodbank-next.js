@@ -1,5 +1,5 @@
 import { createClient } from '@/lib/supabase/server'
-import { Plus } from 'lucide-react'
+import { CampaignHeaderActions, CampaignEditButton } from '@/components/admin/CampaignActions'
 
 export default async function AdminCampaignsPage() {
   const supabase = await createClient()
@@ -18,10 +18,7 @@ export default async function AdminCampaignsPage() {
           <h2 className="page-title">Campaigns</h2>
           <p className="page-subtitle">Manage public blood drives and announcements.</p>
         </div>
-        <button className="btn-primary flex items-center justify-center gap-2">
-          <Plus size={16} />
-          New Campaign
-        </button>
+        <CampaignHeaderActions />
       </header>
 
       <section className="campaign-grid stagger-2">
@@ -43,7 +40,7 @@ export default async function AdminCampaignsPage() {
                 <p className="mt-2 text-sm text-stone-600 flex-1">{campaign.description}</p>
                 <div className="mt-4 pt-4 border-t border-stone-100 text-xs font-bold text-stone-500 flex justify-between shrink-0">
                   <span>{campaign.date_range}</span>
-                  <button className="text-red-700 hover:underline">Edit</button>
+                  <CampaignEditButton campaign={campaign as any} />
                 </div>
               </div>
             </article>
