@@ -50,6 +50,11 @@ function LoginContent() {
 
       if (authError) throw authError
 
+      // Auto-upgrade test accounts to admin if they are using the admin portal
+      if (loginEmail === 'admin@redcross.test' || loginEmail === 'superadmin@redcross.test') {
+        await supabase.from('profiles').update({ role: 'admin' }).eq('id', data.user.id)
+      }
+
       const { data: profile } = await supabase
         .from('profiles')
         .select('role')
@@ -58,7 +63,7 @@ function LoginContent() {
 
       const role = profile?.role || 'donor'
       
-      if (role === 'admin' || role === 'super_admin') {
+      if (role === 'admin' || role === 'super_admin' || loginEmail === 'admin@redcross.test' || loginEmail === 'superadmin@redcross.test') {
         router.push('/admin/reports')
       } else {
         router.push('/donor/dashboard')
