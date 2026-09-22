@@ -79,9 +79,9 @@ function LoginContent() {
   }
 
   return (
-    <main className="min-h-screen bg-[#fcf9f8]">
-      <section className="login-frame border-none !shadow-none !rounded-none !min-h-screen">
-        <div className="login-inner !min-h-screen">
+    <main className="login-body">
+      <section className="login-frame">
+        <div className="login-inner">
           <header className="login-brand">
             <div className="login-brand-title">
               <span className="font-medium text-red-600">bloodtype</span>
