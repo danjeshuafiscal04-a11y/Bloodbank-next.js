@@ -171,7 +171,7 @@ export default async function DonorDashboardPage() {
               </div>
             </div>
           </div>
-          <Link href="/donor/history" className="btn-secondary mt-10 w-full text-center block transition-all hover:-translate-y-1 hover:shadow-md">View Full History</Link>
+          <Link href="/donor/history" className="btn-secondary mt-10 w-full text-center block">View Full History</Link>
         </section>
       </div>
     </div>

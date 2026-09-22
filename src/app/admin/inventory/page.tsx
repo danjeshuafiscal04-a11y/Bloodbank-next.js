@@ -35,7 +35,7 @@ export default async function AdminInventoryPage({
           <h2 className="page-title">Blood Inventory</h2>
           <p className="page-subtitle">Real-time stock levels and unit tracking.</p>
         </div>
-        <button className="btn-primary flex items-center justify-center gap-2 transition-transform hover:scale-105 shadow-md">
+        <button className="btn-primary flex items-center justify-center gap-2">
           <Plus size={16} />
           Log New Unit
         </button>
@@ -59,7 +59,7 @@ export default async function AdminInventoryPage({
       <section className="card table-card stagger-5">
         <div className="p-4 border-b border-stone-200 flex flex-col sm:flex-row gap-4 justify-between bg-stone-50">
           <SearchPill placeholder="Search Unit ID..." />
-          <button className="btn-outline flex items-center gap-2 transition-transform hover:scale-105">
+          <button className="btn-outline flex items-center gap-2">
             <Filter size={16} />
             Filter
           </button>

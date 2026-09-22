@@ -11,7 +11,7 @@ export default function AdminNotificationsPage() {
         <button className="text-sm font-bold text-red-700 hover:underline transition-transform hover:scale-105">Mark all as read</button>
       </header>
 
-      <section className="card bg-white border border-stone-200 rounded-xl overflow-hidden shadow-sm divide-y divide-stone-100 stagger-2">
+      <section className="card bg-white border border-stone-200 rounded-xl overflow-hidden divide-y divide-stone-100 stagger-2">
         {[1, 2, 3].map((i) => (
           <div key={i} className={`p-4 flex gap-4 transition-colors hover:bg-red-50/50`}>
             <div className="mt-1 flex-shrink-0 grid h-10 w-10 place-items-center rounded-full bg-red-100 text-red-700 transition-transform hover:scale-110">

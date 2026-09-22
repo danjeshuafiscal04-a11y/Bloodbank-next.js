@@ -46,9 +46,9 @@ export default async function LandingPage() {
                 </div>
             </div>
             <div className="relative">
-                <div className="aspect-[4/3] overflow-hidden rounded-2xl border border-red-100 bg-gradient-to-br from-red-100 via-white to-stone-100 shadow-2xl">
+                <div className="aspect-[4/3] overflow-hidden rounded-3xl border border-stone-200/60 bg-gradient-to-br from-red-50 via-white to-stone-50 shadow-[0_20px_60px_-15px_rgba(183,1,0,0.1)] transition-transform duration-700 hover:scale-[1.02]">
                     <div className="grid h-full place-items-center p-10">
-                        <div className="w-full rounded-2xl bg-white/85 p-8 shadow-xl">
+                        <div className="w-full rounded-2xl bg-white/60 backdrop-blur-md p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/80">
                             <div className="mb-8 flex items-center justify-between">
                                 <div>
                                     <p className="text-xs font-bold uppercase tracking-widest text-stone-500">Inventory health</p>
@@ -85,7 +85,7 @@ export default async function LandingPage() {
                         ['Clinical Requests', 'Hospitals can request blood products with supporting documentation.'],
                         ['Admin Operations', 'Manage inventory, donor records, reports, alerts, maps, and audits.'],
                     ].map(([title, text]) => (
-                        <div key={title} className="card p-6 sm:p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+                        <div key={title} className="card p-6 sm:p-7">
                             <h3 className="text-lg sm:text-xl font-bold">{title}</h3>
                             <p className="mt-2 sm:mt-3 text-sm leading-6 text-stone-600">{text}</p>
                         </div>

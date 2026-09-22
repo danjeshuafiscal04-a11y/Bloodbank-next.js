@@ -50,7 +50,7 @@ export default function SecurityPage() {
   }
 
   return (
-    <div className="card max-w-4xl p-6 stagger-1 transition-all hover:shadow-md">
+    <div className="card max-w-4xl p-6 stagger-1">
       <h2 className="section-title mb-5">Account Security</h2>
       
       {message && (
@@ -77,7 +77,7 @@ export default function SecurityPage() {
           <button 
             type="button" 
             onClick={() => setShowPasswordReset(!showPasswordReset)}
-            className="btn-secondary shrink-0 transition-transform hover:scale-105"
+            className="btn-secondary shrink-0"
           >
             {showPasswordReset ? 'Cancel' : 'Reset Password'}
           </button>
@@ -117,7 +117,7 @@ export default function SecurityPage() {
             </div>
             <button 
               disabled={loading}
-              className="btn-primary mt-4 transition-transform hover:scale-105 shadow-md" 
+              className="btn-primary mt-4" 
               type="submit"
             >
               {loading ? 'Saving...' : 'Save New Password'}

@@ -89,7 +89,7 @@ export default function SchedulePage() {
             <div className="schedule-confirmed-copy">
                 <h2>Salamat, Donor!</h2>
                 <p>{serviceType === 'Blood Request' ? 'Your blood request has been submitted for review.' : 'Your appointment is scheduled and waiting for staff review.'}</p>
-                <button className="btn-primary mt-6 transition-transform hover:scale-105 shadow-md" type="button" onClick={() => { setConfirmed(false); setStep(1); }}>Book Another</button>
+                <button className="btn-primary mt-6" type="button" onClick={() => { setConfirmed(false); setStep(1); }}>Book Another</button>
             </div>
         </section>
       )}
@@ -375,7 +375,7 @@ export default function SchedulePage() {
               </form>
 
               <aside className="space-y-4">
-                  <div className="card stagger-3 p-5 transition-transform hover:-translate-y-1 hover:shadow-md">
+                  <div className="card stagger-3 p-5">
                       <h3 className="font-bold text-red-700">Prep Tips</h3>
                       <p className="mt-2 text-sm text-stone-600">Hydrate and bring a valid ID before your visit.</p>
                   </div>

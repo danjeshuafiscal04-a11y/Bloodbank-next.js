@@ -77,7 +77,7 @@ export default function BloodRequestPage() {
 
       <form onSubmit={handleSubmit} className="form-grid split-grid lg:grid-cols-[1fr_320px]">
         <div className="space-y-6">
-          <section className="card stagger-2 p-6 transition-all hover:-translate-y-1 hover:shadow-md">
+          <section className="card stagger-2 p-6">
             <h2 className="section-title">Patient Details</h2>
             <div className="form-grid grid gap-4 md:grid-cols-2 mt-4">
               <div>
@@ -99,7 +99,7 @@ export default function BloodRequestPage() {
             </div>
           </section>
 
-          <section className="card stagger-3 p-6 transition-all hover:-translate-y-1 hover:shadow-md">
+          <section className="card stagger-3 p-6">
             <h2 className="section-title">Request Specifications</h2>
             <div className="form-grid grid gap-4 md:grid-cols-2 mt-4">
               <div>
@@ -138,7 +138,7 @@ export default function BloodRequestPage() {
             </div>
           </section>
 
-          <section className="card stagger-4 p-6 transition-all hover:-translate-y-1 hover:shadow-md">
+          <section className="card stagger-4 p-6">
             <h2 className="section-title mb-4">Medical Information</h2>
             <label className="label">Diagnosis / Reason for Request</label>
             <textarea className="textarea" name="diagnosis" rows={4} value={formData.diagnosis} onChange={handleChange}></textarea>
@@ -150,7 +150,7 @@ export default function BloodRequestPage() {
         </div>
 
         <aside className="space-y-4">
-          <div className="card stagger-3 p-6 transition-transform hover:-translate-y-1 hover:shadow-md">
+          <div className="card stagger-3 p-6">
             <h3 className="section-title mb-4">Request Summary</h3>
             <p className="label">Priority Status</p>
             <span className="badge">
@@ -160,7 +160,7 @@ export default function BloodRequestPage() {
               <p className="label">Estimated Fulfillment</p>
               <p className="text-xl font-extrabold text-red-700">--:--</p>
             </div>
-            <button disabled={loading} className="btn-primary w-full mt-6 transition-transform hover:scale-105 shadow-md" type="submit">
+            <button disabled={loading} className="btn-primary w-full mt-6" type="submit">
               {loading ? 'Submitting...' : 'Submit Blood Request'}
             </button>
           </div>

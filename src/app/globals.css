@@ -19,14 +19,14 @@
   --muted: #5f5b58;
   --muted-strong: #79716b;
   --soft-panel: #fafaf9;
-  --shadow-xs: 0 1px 2px rgb(28 27 27 / 0.04);
-  --shadow-sm: 0 4px 12px rgb(28 27 27 / 0.05);
-  --shadow-md: 0 12px 35px rgb(28 27 27 / 0.06);
-  --shadow-lg: 0 20px 50px rgb(28 27 27 / 0.09);
-  --shadow-xl: 0 28px 70px rgb(28 27 27 / 0.13);
+  --shadow-xs: 0 1px 2px rgb(0 0 0 / 0.03), 0 1px 3px rgb(0 0 0 / 0.02);
+  --shadow-sm: 0 2px 4px rgb(0 0 0 / 0.04), 0 4px 12px rgb(0 0 0 / 0.03);
+  --shadow-md: 0 4px 8px rgb(0 0 0 / 0.04), 0 12px 24px rgb(0 0 0 / 0.06);
+  --shadow-lg: 0 10px 15px rgb(0 0 0 / 0.03), 0 20px 40px rgb(0 0 0 / 0.08);
+  --shadow-xl: 0 15px 25px rgb(0 0 0 / 0.04), 0 28px 60px rgb(0 0 0 / 0.12);
   --radius-sm: 0.5rem;
-  --radius-md: 0.75rem;
-  --radius-lg: 1rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.5rem;
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
@@ -568,22 +568,24 @@ button.top-icon-btn {
 .card,
 .panel {
   min-width: 0;
-  border: 1px solid rgb(254 202 202 / 0.8);
-  border-radius: var(--radius-md);
-  background: rgb(255 255 255 / 0.97);
+  border: 1px solid rgb(0 0 0 / 0.04);
+  border-radius: var(--radius-lg);
+  background: rgb(255 255 255 / 0.98);
   box-shadow: var(--shadow-sm);
   animation: fade-up 420ms var(--ease-out-expo) both;
 }
 
 .card {
   transition:
-    border-color 250ms var(--ease-out-expo),
-    box-shadow 250ms var(--ease-out-expo),
-    transform 250ms var(--ease-out-expo);
+    border-color 400ms var(--ease-out-expo),
+    box-shadow 400ms var(--ease-out-expo),
+    transform 400ms var(--ease-spring);
 }
 
 .card:hover {
   box-shadow: var(--shadow-md);
+  border-color: rgb(0 0 0 / 0.08);
+  transform: translateY(-4px);
 }
 
 .panel {
@@ -744,16 +746,16 @@ button.top-icon-btn {
 .select,
 .textarea {
   width: 100%;
-  border: 1px solid rgb(254 202 202 / 1);
-  border-radius: var(--radius-sm);
+  border: 1px solid rgb(254 202 202 / 0.5);
+  border-radius: var(--radius-md);
   background: #fafaf9;
   padding: 0.78rem 1rem;
   color: #292524;
   outline: none;
   transition:
-    background 200ms var(--ease-out-expo),
-    border-color 200ms var(--ease-out-expo),
-    box-shadow 200ms var(--ease-out-expo);
+    background 250ms var(--ease-out-expo),
+    border-color 250ms var(--ease-out-expo),
+    box-shadow 250ms var(--ease-out-expo);
 }
 
 .textarea {
@@ -1697,12 +1699,12 @@ button.top-icon-btn {
 
 .login-card {
   width: 100%;
-  max-width: 340px;
-  border: 1px solid rgb(233 188 181 / 0.3);
-  border-radius: 0.5rem;
+  max-width: 360px;
+  border: 1px solid rgb(0 0 0 / 0.04);
+  border-radius: 1.25rem;
   background: white;
-  padding: 1.85rem;
-  box-shadow: 0 18px 50px rgb(28 27 27 / 0.08);
+  padding: 2.25rem;
+  box-shadow: var(--shadow-xl);
 }
 
 .login-stage {
@@ -1730,12 +1732,17 @@ button.top-icon-btn {
   font-size: 0.78rem;
   font-weight: 750;
   text-align: center;
+  transition: all 250ms var(--ease-out-expo);
+}
+
+.login-tab:hover {
+  background: rgb(255 255 255 / 0.5);
 }
 
 .login-tab.is-active {
   background: white;
   color: #e60000;
-  box-shadow: 0 1px 8px rgb(28 27 27 / 0.08);
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.05);
 }
 
 .login-submit {
@@ -2051,7 +2058,8 @@ button.top-icon-btn {
 
 .notification-item {
   cursor: pointer;
-  transition: background 0.2s ease, opacity 0.2s ease;
+  transition: all 250ms var(--ease-out-expo);
+  border-left: 3px solid transparent;
 }
 
 .notification-item * {
@@ -2060,7 +2068,10 @@ button.top-icon-btn {
 
 .notification-item:hover,
 .notification-item.is-selected {
-  background: #fff7f7;
+  background: rgb(255 255 255 / 0.8);
+  border-left-color: #b70100;
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.03);
 }
 
 .notification-item.is-read {

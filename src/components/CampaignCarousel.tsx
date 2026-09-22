@@ -40,7 +40,7 @@ export default function CampaignCarousel({ campaigns }: { campaigns: any[] }) {
             campaigns.map((campaign) => (
               <article 
                 key={campaign.id} 
-                className="card campaign-card flex flex-col group w-[75vw] min-w-[260px] max-w-[300px] shrink-0 snap-start overflow-hidden text-left transition duration-300 hover:-translate-y-1 hover:shadow-xl sm:w-auto sm:min-w-0 sm:max-w-none sm:snap-align-none h-full"
+                className="card campaign-card flex flex-col group w-[75vw] min-w-[260px] max-w-[300px] shrink-0 snap-start overflow-hidden text-left transition sm:w-auto sm:min-w-0 sm:max-w-none sm:snap-align-none h-full"
               >
                 <div className="relative h-32 overflow-hidden bg-red-50 sm:h-36 shrink-0">
                   <img 

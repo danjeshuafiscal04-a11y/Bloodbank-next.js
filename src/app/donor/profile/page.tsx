@@ -79,7 +79,7 @@ export default async function ProfilePage() {
             <input className="input" name="address" defaultValue={profile?.address || ''} />
           </div>
         </div>
-        <button className="btn-primary mt-6 transition-transform hover:scale-105 shadow-md" type="submit">
+        <button className="btn-primary mt-6" type="submit">
           Save Changes
         </button>
       </form>

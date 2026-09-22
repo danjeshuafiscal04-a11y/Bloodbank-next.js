@@ -18,7 +18,7 @@ export default async function AdminCampaignsPage() {
           <h2 className="page-title">Campaigns</h2>
           <p className="page-subtitle">Manage public blood drives and announcements.</p>
         </div>
-        <button className="btn-primary flex items-center justify-center gap-2 transition-transform hover:scale-105 shadow-md">
+        <button className="btn-primary flex items-center justify-center gap-2">
           <Plus size={16} />
           New Campaign
         </button>
