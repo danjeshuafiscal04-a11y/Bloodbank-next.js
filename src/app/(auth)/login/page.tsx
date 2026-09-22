@@ -50,9 +50,11 @@ function LoginContent() {
 
       if (authError) throw authError
 
-      // Auto-upgrade test accounts to admin if they are using the admin portal
-      if (loginEmail === 'admin@redcross.test' || loginEmail === 'superadmin@redcross.test') {
+      // Auto-upgrade test accounts to their respective roles if they are using the admin portal
+      if (loginEmail === 'admin@redcross.test') {
         await supabase.from('profiles').update({ role: 'admin' }).eq('id', data.user.id)
+      } else if (loginEmail === 'superadmin@redcross.test') {
+        await supabase.from('profiles').update({ role: 'super_admin' }).eq('id', data.user.id)
       }
 
       const { data: profile } = await supabase

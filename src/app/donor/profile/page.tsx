@@ -1,5 +1,15 @@
 import { createClient } from '@/lib/supabase/server'
 import { revalidatePath } from 'next/cache'
+import { z } from 'zod'
+
+const emptyStringToNull = z.string().trim().transform(v => v === '' ? null : v).nullable()
+
+const profileSchema = z.object({
+  full_name: z.string().trim().min(1, 'Full name is required'),
+  phone: emptyStringToNull,
+  blood_type: emptyStringToNull,
+  address: emptyStringToNull
+})
 
 export default async function ProfilePage() {
   const supabase = await createClient()
@@ -16,20 +26,38 @@ export default async function ProfilePage() {
 
   const saveProfile = async (formData: FormData) => {
     'use server'
-    const supabase = await createClient()
-    const { data: { user } } = await supabase.auth.getUser()
     
-    await supabase.from('profiles').update({
+    const rawData = {
       full_name: formData.get('full_name'),
       phone: formData.get('phone'),
       blood_type: formData.get('blood_type'),
       address: formData.get('address')
+    }
+    
+    const validatedFields = profileSchema.safeParse(rawData)
+    
+    if (!validatedFields.success) {
+      console.error('Validation failed:', validatedFields.error.flatten())
+      const errorMessages = validatedFields.error.issues.map(err => err.message).join(', ')
+      throw new Error(`Validation failed: ${errorMessages}`)
+    }
+    
+    const validData = validatedFields.data
+
+    const supabase = await createClient()
+    const { data: { user } } = await supabase.auth.getUser()
+    
+    await supabase.from('profiles').update({
+      full_name: validData.full_name,
+      phone: validData.phone,
+      blood_type: validData.blood_type,
+      address: validData.address
     }).eq('id', user?.id)
 
     await supabase.from('donors').update({
-      full_name: formData.get('full_name'),
-      contact: formData.get('phone'),
-      blood_type: formData.get('blood_type')
+      full_name: validData.full_name,
+      contact: validData.phone,
+      blood_type: validData.blood_type
     }).eq('profile_id', user?.id)
 
     revalidatePath('/donor/profile')
