@@ -4,7 +4,15 @@ import React, { useState, useEffect } from 'react';
 import { Search } from 'lucide-react';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 
-export default function SearchPill({ placeholder }: { placeholder: string }) {
+export default function SearchPill({ 
+  placeholder, 
+  className = "search-pill w-full sm:max-w-xs block",
+  inputClassName = "w-full bg-transparent outline-none text-sm text-stone-900"
+}: { 
+  placeholder: string;
+  className?: string;
+  inputClassName?: string;
+}) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -25,10 +33,10 @@ export default function SearchPill({ placeholder }: { placeholder: string }) {
   }, [query, pathname, router, searchParams]);
 
   return (
-    <div className="search-pill w-full sm:max-w-xs block">
+    <div className={className}>
       <Search size={16} />
       <input 
-        className="w-full bg-transparent outline-none text-sm text-stone-900" 
+        className={inputClassName} 
         placeholder={placeholder}
         value={query}
         onChange={(e) => setQuery(e.target.value)}
