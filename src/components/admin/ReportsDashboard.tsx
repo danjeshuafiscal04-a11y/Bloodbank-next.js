@@ -40,7 +40,18 @@ export default function ReportsDashboard({ initialDonors }: { initialDonors: any
   let donutStyle = {}
   let tooltipText = "All blood types: 100%"
 
-  if (selectedType !== 'All') {
+  if (selectedType === 'All') {
+    let gradientStops = [];
+    let cumulative = 0;
+    for (const segment of fullDistribution) {
+      const next = cumulative + segment.share;
+      gradientStops.push(`${segment.color} ${cumulative}% ${next}%`);
+      cumulative = next;
+    }
+    donutStyle = {
+      background: `conic-gradient(${gradientStops.join(', ')})`
+    }
+  } else {
     const selectedShare = fullDistribution.find(d => d.type === selectedType)?.share || 0;
     reportDistribution = [
       { type: selectedType, share: selectedShare, color: '#b70100' },
