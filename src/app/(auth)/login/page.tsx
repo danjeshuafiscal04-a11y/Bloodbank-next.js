@@ -71,8 +71,12 @@ function LoginContent() {
         router.push('/donor/dashboard')
       }
       
-    } catch (err: any) {
-      setError(err.message || 'Failed to sign in.')
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message)
+      } else {
+        setError('Failed to sign in.')
+      }
     } finally {
       setLoading(false)
     }
@@ -188,7 +192,7 @@ function LoginContent() {
 
               {portal !== 'admin' && (
                 <p className="mt-[18px] text-center text-xs text-[#5f3f3a]">
-                  Don't have an account?{' '}
+                  Don&apos;t have an account?{' '}
                   <Link className="font-extrabold text-red-600 hover:underline" href="/register">Register as a Donor</Link>
                 </p>
               )}
