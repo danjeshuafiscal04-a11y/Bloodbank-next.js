@@ -19,6 +19,11 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: "RedCross Blood Bank",
   description: "Blood Bank Management System",
+  appleWebApp: {
+    capable: true,
+    title: "Blood Bank",
+    statusBarStyle: "default",
+  },
 };
 
 export default function RootLayout({

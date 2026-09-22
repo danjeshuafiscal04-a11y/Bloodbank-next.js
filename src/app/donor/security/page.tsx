@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { Lock } from 'lucide-react'
+import InstallAppCard from '@/components/InstallAppCard'
 
 export default function SecurityPage() {
   const supabase = createClient()
@@ -136,6 +137,8 @@ export default function SecurityPage() {
           <input className="h-5 w-5 rounded border-stone-300 text-red-700 mt-2 sm:mt-0" type="checkbox" name="two_factor_enabled" disabled />
         </label>
       </div>
+
+      <InstallAppCard />
     </div>
   )
 }
