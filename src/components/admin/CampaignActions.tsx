@@ -1,5 +1,6 @@
 'use client';
 
+import { createPortal } from 'react-dom';
 import { Plus } from 'lucide-react';
 import { useState } from 'react';
 
@@ -73,7 +74,7 @@ function CampaignModal({ isOpen, onClose, campaign }: { isOpen: boolean, onClose
     }, 800);
   };
 
-  return (
+  const content = (
     <div className="modal-shell">
       <div className="modal-backdrop" onClick={onClose}></div>
       <form className="modal-panel modal-panel-lg modal-panel-form" onSubmit={handleSubmit}>
@@ -126,4 +127,9 @@ function CampaignModal({ isOpen, onClose, campaign }: { isOpen: boolean, onClose
       </form>
     </div>
   );
+
+  if (typeof document !== 'undefined') {
+    return createPortal(content, document.body);
+  }
+  return null;
 }
