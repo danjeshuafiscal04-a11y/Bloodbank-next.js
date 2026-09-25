@@ -2,7 +2,17 @@
 
 import React, { useRef } from 'react';
 
-export default function CampaignCarousel({ campaigns }: { campaigns: Record<string, unknown>[] }) {
+interface Campaign {
+  id: string | number;
+  image_url?: string;
+  title: string;
+  status?: string;
+  description?: string;
+  date_range?: string;
+  locations?: string;
+}
+
+export default function CampaignCarousel({ campaigns }: { campaigns: Campaign[] }) {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const scrollLeft = () => {
